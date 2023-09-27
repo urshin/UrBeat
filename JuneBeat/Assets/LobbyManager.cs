@@ -49,7 +49,7 @@ public class LobbyManager : MonoBehaviour
 
     private void CreatSongSelection()
     {
-        GameManager.Instance.currentstate = "노래 선택"; //현재 상태
+        GameManager.Instance.ChangeState(CurrentState.LobbySongSelect); //현재 상태 바꿈
         // "Resources/music" 폴더의 모든 Texture2D 로드
         Texture2D[] textures = Resources.LoadAll<Texture2D>("music");
 
@@ -135,6 +135,7 @@ public class LobbyManager : MonoBehaviour
     List<GameObject> DifBtn = new List<GameObject>();
     public void CreatDif()
     {
+        GameManager.Instance.ChangeState(CurrentState.LobbyDifficultSelect); //현재 상태 바꿈
         for (int i = 0; i < Row1.Count; i++)
         {
             Destroy(Row1[i]);

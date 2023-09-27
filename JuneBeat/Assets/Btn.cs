@@ -26,8 +26,11 @@ public class Btn : MonoBehaviour
                 LobbyManager.Instance.RightMove();
                 break;
             case "NextBtn":
-                LobbyManager.Instance.CreatDif();
-                if (GameManager.Instance.CurrentSongName != null && GameManager.Instance.CurrentDifficult != null)
+                if (GameManager.Instance.currentState == CurrentState.LobbySongSelect)
+                {
+                    LobbyManager.Instance.CreatDif();
+                }
+                else if (GameManager.Instance.currentState == CurrentState.LobbyDifficultSelect)
                 {
                     LobbyManager.Instance.GoToInGame();
                 }

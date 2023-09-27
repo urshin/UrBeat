@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum CurrentState
+{
+    logo,
+    LobbySongSelect,
+    LobbyDifficultSelect,
+    Ingame,
+    result,
+}
+
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -15,26 +26,24 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);//씬이 전환이 되어도 파괴되지 않고 유지됨.
         }
     }
-    public enum CurrentState
+   
+   
+    public CurrentState currentState;
+
+    // currentState를 변경하는 예제 함수
+    public void ChangeState(CurrentState newState)
     {
-        logo,
-        LobbySongSelect,
-        LobbyDifficultSelect,
-        Ingame,
-        result,
+        currentState = newState;
     }
-
-    public string currentstate; //현재 상태 나타내기
-
 
     public List<string> CurrentSongDiffifultList = new List<string>();
 
 
 
     [Header("곡 정보")]
-    public string CurrentSongName;
-    public string CurrentDifficult;
-    public string CurrentSongAndDiff;
+    public string CurrentSongName; //현재 곡 이름
+    public string CurrentDifficult; //현재 곡 난이도
+    public string CurrentSongAndDiff; //이름+난이도
     public string Title; //텍스트 파일로 읽은 타이틀
     public string Artist;
     public float BPM;
