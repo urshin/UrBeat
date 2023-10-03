@@ -225,6 +225,7 @@ public class LobbyManager : MonoBehaviour
 
             if (line.Contains("#rasmemo"))
             {
+                GameManager.Instance.findrasmemo = i;
                 StopRead = false;
             }
 

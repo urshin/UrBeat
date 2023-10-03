@@ -576,7 +576,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523423848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 550.50964, y: 1608.854, z: -1.2388687}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -595,10 +595,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15951ab4c48a60438cffcd8b7d4aeee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentstate: 
+  currentState: 0
+  CurrentSongDiffifultList: []
   CurrentSongName: 
   CurrentDifficult: 
-  CurrentSongDiffifultList: []
+  CurrentSongAndDiff: 
+  Title: 
+  Artist: 
+  BPM: 0
+  Notes: 0
+  Dif: 0
+  Level: 0
+  TotalNote: 0
+  MusicImage: {fileID: 0}
+  filePath: 
+  textAsset: {fileID: 0}
+  lines: []
   textAssets: []
 --- !u!1 &1593728566
 GameObject:
@@ -659,6 +671,7 @@ MonoBehaviour:
   AdvBtn: {fileID: 2184118673945559699, guid: c7eaf3d7f49840345a7a5d5bef0d3362, type: 3}
   BasBtn: {fileID: 8919652305832064, guid: 29b30dd012df2b943b9de17788cb131b, type: 3}
   ExtBtn: {fileID: 1190794116360893835, guid: b0c5d64370fcc964783e1edd9b695514, type: 3}
+  StopRead: 0
 --- !u!4 &1593728568
 Transform:
   m_ObjectHideFlags: 0

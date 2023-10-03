@@ -123,6 +123,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &691717994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 691717996}
+  - component: {fileID: 691717997}
+  m_Layer: 0
+  m_Name: NewParsing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &691717996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691717994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &691717997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691717994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c3a06bfe008b245a0686e5c75b69c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: 
+  textAsset: {fileID: 0}
+  lines: []
+  musicBPM: 60
+  stdBPM: 60
+  musicTempo: 4
+  stdTempo: 4
 --- !u!1 &736934220
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1998812212
 Transform:
   m_ObjectHideFlags: 0
@@ -259,9 +310,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461fb9ccf1b53604ab0ca8c6497ba9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Title: {fileID: 5585041231356662447}
+  Artist: {fileID: 987968245825933868}
+  BPM: {fileID: 8758823326323987635}
+  Notes: {fileID: 6902589586710075779}
+  Dif: {fileID: 0}
+  Level: {fileID: 0}
+  MusicImage: {fileID: 553154175834964288}
   filePath: 
   textAsset: {fileID: 0}
   lines: []
+  musicBPM: 60
+  stdBPM: 60
+  musicTempo: 4
+  stdTempo: 16
+  currentGroup: []
+  notePosion: {fileID: 1998812212}
+  note: {fileID: 2569110996885184591, guid: b7fad8ec4175add479b5642035cbddeb, type: 3}
+  NoteArray:
+  - {fileID: 3609142958994212394}
+  - {fileID: 2038261241078849387}
+  - {fileID: 5276307607029649674}
+  - {fileID: 6307771915823201536}
+  - {fileID: 8086227178353041336}
+  - {fileID: 1780017912793442616}
+  - {fileID: 1078153134718964338}
+  - {fileID: 1875885417696328146}
+  - {fileID: 7376260577910041785}
+  - {fileID: 5209357586378745014}
+  - {fileID: 3090336325789943027}
+  - {fileID: 6553702393025219854}
+  - {fileID: 253360193034078176}
+  - {fileID: 5151419482686409218}
+  - {fileID: 8774274690700135425}
+  - {fileID: 3483209618853253577}
+  TimePosition: []
+  notePosition: []
+  noteTiming: []
+  CurrentNoteCount: 0
+  nextLine: 0
+  noteCount: 0
 --- !u!224 &253360193034078176
 RectTransform:
   m_ObjectHideFlags: 0
@@ -383,7 +471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

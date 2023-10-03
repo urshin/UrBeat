@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public float TotalNote;
     public Image MusicImage;
 
+    public float findrasmemo;
     public string filePath;
     public TextAsset textAsset;
     public string[] lines;
