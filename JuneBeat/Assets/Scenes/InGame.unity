@@ -170,10 +170,35 @@ MonoBehaviour:
   filePath: 
   textAsset: {fileID: 0}
   lines: []
+  isSongEnd: 0
+  Note: {fileID: 2569110996885184591, guid: b7fad8ec4175add479b5642035cbddeb, type: 3}
+  NotePositionArray:
+  - {fileID: 3609142958994212394}
+  - {fileID: 2038261241078849387}
+  - {fileID: 5276307607029649674}
+  - {fileID: 6307771915823201536}
+  - {fileID: 1078153134718964338}
+  - {fileID: 8086227178353041336}
+  - {fileID: 1875885417696328146}
+  - {fileID: 1780017912793442616}
+  - {fileID: 3090336325789943027}
+  - {fileID: 7376260577910041785}
+  - {fileID: 6553702393025219854}
+  - {fileID: 5209357586378745014}
+  - {fileID: 8774274690700135425}
+  - {fileID: 253360193034078176}
+  - {fileID: 3483209618853253577}
+  - {fileID: 5151419482686409218}
   musicBPM: 60
   stdBPM: 60
   musicTempo: 4
-  stdTempo: 4
+  stdTempo: 16
+  NotePosision: []
+  NoteTimeing: []
+  ccharactor: 
+  currentNoteCount: 0
+  countNoteTiming: 0
+  LongNote: {fileID: 1570552290585538361, guid: 42c20a7cff542904db9afd7d4c6df410, type: 3}
 --- !u!1 &736934220
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +525,7 @@ GameObject:
   - component: {fileID: 6185982097123361352}
   - component: {fileID: 270013018712778135}
   m_Layer: 5
-  m_Name: MarkerBTN (13)
+  m_Name: MarkerBTN 16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -548,7 +573,7 @@ GameObject:
   - component: {fileID: 765313143422734582}
   - component: {fileID: 7391186174140319760}
   m_Layer: 5
-  m_Name: MarkerBTN (14)
+  m_Name: MarkerBTN 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -728,7 +753,7 @@ GameObject:
   - component: {fileID: 3419650882078035345}
   - component: {fileID: 6993135936734906713}
   m_Layer: 5
-  m_Name: MarkerBTN (7)
+  m_Name: MarkerBTN 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -777,7 +802,7 @@ GameObject:
   - component: {fileID: 7012704884370517266}
   - component: {fileID: 7006285335974446067}
   m_Layer: 5
-  m_Name: MarkerBTN
+  m_Name: MarkerBTN 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -833,7 +858,7 @@ GameObject:
   - component: {fileID: 6273215501076484159}
   - component: {fileID: 8953895373171760055}
   m_Layer: 5
-  m_Name: MarkerBTN (15)
+  m_Name: MarkerBTN 15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1034,7 +1059,7 @@ GameObject:
   - component: {fileID: 1783631619808671085}
   - component: {fileID: 4464815862938978274}
   m_Layer: 5
-  m_Name: MarkerBTN (6)
+  m_Name: MarkerBTN 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1090,7 +1115,7 @@ GameObject:
   - component: {fileID: 4210059370253747420}
   - component: {fileID: 1232263194278431126}
   m_Layer: 5
-  m_Name: MarkerBTN (2)
+  m_Name: MarkerBTN 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1188,7 +1213,7 @@ GameObject:
   - component: {fileID: 3339523028341657919}
   - component: {fileID: 8422630901621643320}
   m_Layer: 5
-  m_Name: MarkerBTN (10)
+  m_Name: MarkerBTN 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1206,7 +1231,7 @@ GameObject:
   - component: {fileID: 9042946997822353121}
   - component: {fileID: 6388875484218693919}
   m_Layer: 5
-  m_Name: MarkerBTN (4)
+  m_Name: MarkerBTN 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1344,7 +1369,7 @@ GameObject:
   - component: {fileID: 7218119092268056541}
   - component: {fileID: 2250927607875238080}
   m_Layer: 5
-  m_Name: MarkerBTN (9)
+  m_Name: MarkerBTN 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1426,18 +1451,18 @@ RectTransform:
   - {fileID: 2038261241078849387}
   - {fileID: 5276307607029649674}
   - {fileID: 6307771915823201536}
-  - {fileID: 8086227178353041336}
-  - {fileID: 1780017912793442616}
   - {fileID: 1078153134718964338}
+  - {fileID: 8086227178353041336}
   - {fileID: 1875885417696328146}
-  - {fileID: 7376260577910041785}
-  - {fileID: 5209357586378745014}
+  - {fileID: 1780017912793442616}
   - {fileID: 3090336325789943027}
+  - {fileID: 7376260577910041785}
   - {fileID: 6553702393025219854}
-  - {fileID: 253360193034078176}
-  - {fileID: 5151419482686409218}
+  - {fileID: 5209357586378745014}
   - {fileID: 8774274690700135425}
+  - {fileID: 253360193034078176}
   - {fileID: 3483209618853253577}
+  - {fileID: 5151419482686409218}
   m_Father: {fileID: 1179347965188591110}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1618,7 +1643,7 @@ GameObject:
   - component: {fileID: 2286338669648856742}
   - component: {fileID: 939826890054921012}
   m_Layer: 5
-  m_Name: MarkerBTN (3)
+  m_Name: MarkerBTN 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1636,7 +1661,7 @@ GameObject:
   - component: {fileID: 8371178756504397198}
   - component: {fileID: 9038882380738225810}
   m_Layer: 5
-  m_Name: MarkerBTN (11)
+  m_Name: MarkerBTN 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2083,7 +2108,7 @@ GameObject:
   - component: {fileID: 319895592497939286}
   - component: {fileID: 5569850372142363062}
   m_Layer: 5
-  m_Name: MarkerBTN (5)
+  m_Name: MarkerBTN 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2215,7 +2240,7 @@ GameObject:
   - component: {fileID: 7088484979895189338}
   - component: {fileID: 7248684735387934389}
   m_Layer: 5
-  m_Name: MarkerBTN (8)
+  m_Name: MarkerBTN 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2344,7 +2369,7 @@ GameObject:
   - component: {fileID: 1390790724382346925}
   - component: {fileID: 614011501448125479}
   m_Layer: 5
-  m_Name: MarkerBTN (12)
+  m_Name: MarkerBTN 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2400,7 +2425,7 @@ GameObject:
   - component: {fileID: 7758294520866818839}
   - component: {fileID: 2146920953122709563}
   m_Layer: 5
-  m_Name: MarkerBTN (1)
+  m_Name: MarkerBTN 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
