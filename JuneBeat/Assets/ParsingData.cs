@@ -79,7 +79,7 @@ public class ParsingData : MonoBehaviour
         Artist.text = GameManager.Instance.Artist;
         BPM.text = GameManager.Instance.BPM.ToString();
         Notes.text = GameManager.Instance.Notes.ToString();
-        MusicImage.sprite = GameManager.Instance.MusicImage.sprite;
+   //     MusicImage.sprite = GameManager.Instance.MusicImage.sprite;
         musicBPM = GameManager.Instance.BPM; //음악 BPM 넣기
         //이미지 배열로 처리 해두기 나중에....
         //Dif.text = GameManager.Instance.Dif.ToString()  ;

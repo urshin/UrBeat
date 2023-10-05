@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     public float Dif;
     public float Level;
     public float TotalNote;
-    public Image MusicImage;
+    public Sprite MusicImage;
 
     public float findrasmemo;
     public string filePath;

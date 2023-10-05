@@ -26,11 +26,11 @@ public class Btn : MonoBehaviour
                 LobbyManager.Instance.RightMove();
                 break;
             case "NextBtn":
-                if (GameManager.Instance.currentState == CurrentState.LobbySongSelect)
+                if (GameManager.Instance.currentState == CurrentState.LobbySongSelect && GameManager.Instance.CurrentSongName !=null )
                 {
                     LobbyManager.Instance.CreatDif();
                 }
-                else if (GameManager.Instance.currentState == CurrentState.LobbyDifficultSelect)
+                else if (GameManager.Instance.currentState == CurrentState.LobbyDifficultSelect && GameManager.Instance.CurrentDifficult != null)
                 {
                     LobbyManager.Instance.GoToInGame();
                 }

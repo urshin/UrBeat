@@ -8,16 +8,20 @@ using static GameManager;
 
 public class LobbyManager : MonoBehaviour
 {
+    public static LobbyManager Instance;
+
     [Header("표기")]
     public Text Title;
     public Text Artist;
     public Text BPM;
     public Text Notes;
     //public Text Dif;
-    //public Text Level;
+    public Image Level;
     public Image MusicImage;
 
-    public static LobbyManager Instance;
+    [SerializeField] Sprite[] LobbyLevelImage;
+
+   
     public GameObject[] ImagePosition;
     public GameObject selectBtn;
     public List<GameObject> Row1;
@@ -44,13 +48,14 @@ public class LobbyManager : MonoBehaviour
     }
     void Start()
     {
-        CreatSongSelection();
+        CreateSongSelection();
     }
 
-    private void CreatSongSelection()
+    private void CreateSongSelection()
     {
-        GameManager.Instance.ChangeState(CurrentState.LobbySongSelect); //현재 상태 바꿈
-        // "Resources/music" 폴더의 모든 Texture2D 로드
+        GameManager.Instance.ChangeState(CurrentState.LobbySongSelect); // 현재 상태를 LobbySongSelect로 변경
+
+        // "Resources/music" 폴더에서 모든 Texture2D 로드
         Texture2D[] textures = Resources.LoadAll<Texture2D>("music");
 
         List<Texture2D> textureList = new List<Texture2D>(textures);
@@ -58,79 +63,87 @@ public class LobbyManager : MonoBehaviour
         Row2 = new List<GameObject>();
         Row3 = new List<GameObject>();
         int Row1Count = 0, Row2Count = 0, Row3Count = 0;
-        //노래 파일들 생성
+
+        // 노래 파일들 생성
         for (int i = 0; i < textures.Length; i++)
         {
+            int row = 0;
 
-
-            int p = 0;
+            // Texture2D를 Sprite로 변환
             Sprite sprite = Sprite.Create(textureList[i], new Rect(0, 0, textureList[i].width, textureList[i].height), new Vector2(0.5f, 0.5f));
+
+            // selectBtn 프리팹을 복제하여 노래 선택 오브젝트 생성
             GameObject selectObject = Instantiate(selectBtn, ImagePosition[0].transform.position, Quaternion.identity);
             selectObject.GetComponent<Image>().sprite = sprite;
-            //selectObject.transform.parent = GameObject.Find("Canvas").transform.GetChild(0);
             selectObject.transform.SetParent(GameObject.Find("Canvas").transform);
 
+            // 행 (Row) 결정
             if (i >= textures.Length / 3 + 1 && i < 1 + (textures.Length - (textures.Length / 3)))
             {
-                p = 1;
+                row = 1;
             }
             if (i >= (textures.Length - (textures.Length / 3)))
             {
-                p = 2;
+                row = 2;
             }
 
-            switch (p)
+            switch (row)
             {
                 case 0:
                     Row1.Add(selectObject);
-                    Row1[Row1Count].name = textureList[i].name; //이름 정해주기
+                    Row1[Row1Count].name = textureList[i].name; // 이름 설정
                     Row1Count++;
                     break;
                 case 1:
                     Row2.Add(selectObject);
-                    Row2[Row2Count].name = textureList[i].name;//이름 정해주기
+                    Row2[Row2Count].name = textureList[i].name; // 이름 설정
                     Row2Count++;
                     break;
                 case 2:
                     Row3.Add(selectObject);
-                    Row3[Row3Count].name = textureList[i].name;//이름 정해주기
+                    Row3[Row3Count].name = textureList[i].name; // 이름 설정
                     Row3Count++;
                     break;
-
             }
-            selectObject.transform.position += new Vector3(-270, -270 * p, 0);
+
+            // 오브젝트 위치 조정
+            selectObject.transform.position += new Vector3(-270, -270 * row, 0);
         }
 
-        for (int i = 0; i < Row1.Count; i++)
-        {
-            Row1[i].transform.position += new Vector3(xOffset * i, 0, 0);
+        // 각 행의 오브젝트 위치 조정
+        PositionRows(Row1);
+        PositionRows(Row2);
+        PositionRows(Row3);
 
-        }
-        for (int i = 0; i < Row2.Count; i++)
-        {
-            Row2[i].transform.position += new Vector3(xOffset * i, 0, 0);
-
-        }
-        for (int i = 0; i < Row3.Count; i++)
-        {
-            Row3[i].transform.position += new Vector3(xOffset * i, 0, 0);
-
-        }
-
+        // 왼쪽 및 오른쪽 끝 위치 저장
         LeftX = Row1[0].transform.localPosition.x;
         RightX = Row1[Row1.Count - 1].transform.localPosition.x + 1;
+
+        // Guid 오브젝트를 가장 위로 이동
+        Guid.GetComponent<RectTransform>().SetAsLastSibling();
     }
 
+    // 행의 오브젝트 위치 조정
+    private void PositionRows(List<GameObject> row)
+    {
+        for (int i = 0; i < row.Count; i++)
+        {
+            row[i].transform.position += new Vector3(xOffset * i, 0, 0);
+        }
+    }
 
-
+    [SerializeField] GameObject Guid;
     void Update()
     {
-
+        
     }
     private void FixedUpdate()
     {
 
     }
+
+
+
 
     List<GameObject> DifBtn = new List<GameObject>();
     public void CreatDif()
@@ -172,6 +185,7 @@ public class LobbyManager : MonoBehaviour
             extreme.transform.SetParent(GameObject.Find("Canvas").transform);
             DifBtn.Add(extreme);
         }
+        Guid.GetComponent<RectTransform>().SetAsLastSibling(); //가이드 두기
     }
     public bool StopRead;
     int i;
@@ -191,7 +205,7 @@ public class LobbyManager : MonoBehaviour
             {
                 GameManager.Instance.Title = line.Substring(8).Trim();
                 Title.text = line.Substring(8);
-               // GameManager.Instance.MusicImage.sprite = Resources.Load<Sprite>("music/" + GameManager.Instance.CurrentSongName);
+                GameManager.Instance.MusicImage = Resources.Load<Sprite>("music/" + GameManager.Instance.CurrentSongName);
             }
             if (line.StartsWith("#artist"))
             {
@@ -202,12 +216,11 @@ public class LobbyManager : MonoBehaviour
             {
                 float.TryParse(line.Substring(6), out GameManager.Instance.Dif);
 
-                //patternData.Instance.dif = float.Parse(line.Substring(5));
             }
             if (line.StartsWith("#lev"))
             {
                 float.TryParse(line.Substring(6), out GameManager.Instance.Level);
-                // patternData.Instance.lev = float.Parse(line.Substring(5));
+                Level.sprite = LobbyLevelImage[(int)GameManager.Instance.Level-1];
             }
 
             if (line.StartsWith("t"))
@@ -240,8 +253,10 @@ public class LobbyManager : MonoBehaviour
         }
         if (Row1.Count == 0)
         {
-            CreatSongSelection();
+            CreateSongSelection();
+            
         }
+
 
     }
 
