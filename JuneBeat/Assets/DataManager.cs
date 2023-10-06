@@ -14,10 +14,39 @@ public class DataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);//씬이 전환이 되어도 파괴되지 않고 유지됨.
         }
     }
-   public int isPerfect;
-   public int isGreat;
-   public int isBad;
-   public int isMiss;
+
+
+
+
+    public float Perfect;
+    public float Great;
+    public float Bad;
+    public float Miss;
+
+    public int Combo;
+
+
+    public void ResetScore()
+    {
+        Perfect = 0;
+        Great = 0;
+        Bad = 0;
+        Miss = 0;
+        Combo = 0;
+    }
+
+
+    public float totalScore;
+
+    float BaseScore = 1000000;
+    public void SetingScoreSystem() //점수 판정
+    {
+        Perfect = BaseScore / GameManager.Instance.TotalNote; //총 얻을 수 있는 점수인 1000000를 노트 수만큼 나눈것
+        Great = (Perfect / 100) * 70; //퍼펙트 점수의 70퍼
+        Bad = (Perfect / 100) * 30; // 30퍼
+        Miss = 0; //없음
+    }
+
 
 
 

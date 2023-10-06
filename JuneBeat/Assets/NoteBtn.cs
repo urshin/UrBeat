@@ -10,7 +10,7 @@ public class NoteBtn : MonoBehaviour
     public bool isBad;
     public bool isMiss;
 
-    public enum NoteJud
+    public enum NoteJudge
     {
         Perfect,
         Great,
@@ -19,7 +19,7 @@ public class NoteBtn : MonoBehaviour
 
     }
 
-    public NoteJud currentJudge;
+    public NoteJudge currentJudge;
     private Button button;
     // Start is called before the first frame update
 
@@ -37,53 +37,57 @@ public class NoteBtn : MonoBehaviour
         button.onClick.AddListener(judge); //인자가 없을 때 함수 호출
     }
 
-    
+
 
 
     void judge()
     {
-        switch (currentJudge)
+        if (currentJudge == NoteJudge.Perfect)
         {
-            case NoteJud.Perfect:
-                animator.SetBool("Perfect",true);
-                
-                break;
+            animator.SetBool("Perfect", true);
+            DataManager.Instance.totalScore += DataManager.Instance.Perfect;
+            DataManager.Instance.Combo++;
+        }
+        else if (currentJudge == NoteJudge.Great)
+        {
+            animator.SetBool("Great", true);
+            DataManager.Instance.totalScore += DataManager.Instance.Great;
+            DataManager.Instance.Combo++;
 
-            case NoteJud.Great:
-                animator.SetBool("Great", true);
-                break;
-
-            case NoteJud.Bad:
-                animator.SetBool("Bad", true);
-                break;
-
-
+        }
+        else if (currentJudge == NoteJudge.Bad)
+        {
+            animator.SetBool("Bad", true);
+            DataManager.Instance.totalScore += DataManager.Instance.Bad;
+            DataManager.Instance.Combo++;
         }
     }
 
     void Perfect()
     {
-        currentJudge = NoteJud.Perfect;
+        currentJudge = NoteJudge.Perfect;
         isGreat = false;
         isPerfect = true;
     }
     void Great()
     {
-        currentJudge = NoteJud.Great;
+        currentJudge = NoteJudge.Great;
         isBad = false;
         isGreat = true;
     }
     void Bad()
     {
-        currentJudge = NoteJud.Bad;
+        currentJudge = NoteJudge.Bad;
         isBad = true;
 
     }
     void Miss()
     {
-        currentJudge = NoteJud.Miss;
+        currentJudge = NoteJudge.Miss;
         isPerfect = false;
         isMiss = true;
+        DataManager.Instance.Combo = 0;
+
         //미쓰는 아무것도 안해도 점수 ㅇㅇ 해줘얗ㅁ
     }
 

@@ -11,21 +11,6 @@ using UnityEngine.UI;
 
 public class NewParsing : MonoBehaviour
 {
-
-    [SerializeField] Text Title;
-    [SerializeField] Text Artist;
-    [SerializeField] Text BPM;
-    [SerializeField] Text Notes;
-    [SerializeField] Image Dif;
-    [SerializeField] Image Level;
-    [SerializeField] Image MusicImage;
-
-
-    [SerializeField] Sprite[] DifSprite;
-    [SerializeField] Sprite[] LevelSprite;
-
-
-
     public string filePath;
     public TextAsset textAsset;
     public string[] lines;
@@ -75,18 +60,9 @@ public class NewParsing : MonoBehaviour
         ShowInfoSong();
         ReadSongTxt();
         PositionTimingParsing();
-
-
-        Title.text = GameManager.Instance.CurrentSongName;
-        Artist.text = GameManager.Instance.Artist;
-        BPM.text = GameManager.Instance.BPM.ToString();
-        Notes.text = GameManager.Instance.Notes.ToString();
-        Dif.sprite = DifSprite[(int)GameManager.Instance.Dif - 1];
-        Level.sprite = LevelSprite[(int)GameManager.Instance.Level - 1];
-        MusicImage.sprite = GameManager.Instance.MusicImage;
-
-
+       
     }
+
 
 
 
@@ -94,17 +70,9 @@ public class NewParsing : MonoBehaviour
 
     private void ShowInfoSong()
     {
-        //  Title.text = GameManager.Instance.Title;
-        //  Artist.text = GameManager.Instance.Artist;
-        //  BPM.text = GameManager.Instance.BPM.ToString();
-        //  Notes.text = GameManager.Instance.Notes.ToString();
-        //  MusicImage.sprite = GameManager.Instance.MusicImage.sprite;
         musicBPM = GameManager.Instance.BPM; //음악 BPM 넣기
         LineNum = (int)GameManager.Instance.findrasmemo;
 
-        //이미지 배열로 처리 해두기 나중에....
-        //Dif.text = GameManager.Instance.Dif.ToString()  ;
-        //Level.text = GameManager.Instance.Level.ToString() ;
     }
 
     [SerializeField] int lineCount;
@@ -115,7 +83,7 @@ public class NewParsing : MonoBehaviour
         textAsset = Resources.Load<TextAsset>(filePath);
         Debug.Log(filePath);
         lines = textAsset.text.Split('\n');
-        lineCount = lines.Length; // 이 줄을 추가하여 줄의 수를 구합니다.
+        lineCount = lines.Length; //줄을 추가하여 줄의 수 구함
     }
 
     private void ReadNextNotePosition() //다음줄 읽기 함수
@@ -242,6 +210,7 @@ public class NewParsing : MonoBehaviour
     {
         tikTime = (stdBPM / musicBPM) * (musicTempo / stdTempo); //노트 출력 속도
         nextTime += Time.deltaTime;
+
         if (!TimerEnd)
         {
             Timer();
@@ -257,9 +226,10 @@ public class NewParsing : MonoBehaviour
 
             nextTime -= tikTime; // -= 연산 추가
         }
-        if (isSongEnd)
+
+        if (isSongEnd && GameManager.Instance.currentState == CurrentState.Ingame)
         {
-            //노래 끝났을 때 실행되는 함
+            GameManager.Instance.currentState = CurrentState.result;
         }
 
     }
@@ -308,7 +278,7 @@ public class NewParsing : MonoBehaviour
             ReadNextNotePosition();
             mappingNote(NotePosision);
             ListingNoteTiming();
-            Debug.Log(NotePosision.Count);
+            //Debug.Log(NotePosision.Count);
             countNoteTiming = 0;
 
             symbolToIndex2.Clear();

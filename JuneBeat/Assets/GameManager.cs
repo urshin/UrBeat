@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     public List<string> CurrentSongDiffifultList = new List<string>();
 
+    [Header("게임마스터 권한")]
+    public bool autoPlay;
 
 
     [Header("곡 정보")]
