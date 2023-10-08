@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class NoteBtn : MonoBehaviour
+public class NoteBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public bool isPerfect;
     public bool isGreat;
     public bool isBad;
     public bool isMiss;
+
+    private bool isButtonPressed = false;
+    private int counter = 0;
+    private Coroutine incrementCoroutine;
 
     public enum NoteJudge
     {
@@ -34,9 +39,53 @@ public class NoteBtn : MonoBehaviour
         isMiss = false;
         animator = GetComponent<Animator>();
         button = GetComponent<Button>(); //버튼 component 가져오기
-        button.onClick.AddListener(judge); //인자가 없을 때 함수 호출
+        //button.onClick.AddListener(judge); //인자가 없을 때 함수 호출
     }
 
+    void AutoPlay()//오토플레이용
+    {
+        if(GameManager.Instance.autoPlay)
+        {
+            judge();
+        }
+    }
+
+    // 버튼을 누를 때 실행될 메서드
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // 버튼이 눌린 상태로 변경
+        isButtonPressed = true;
+        counter = 0;
+        judge();
+        // 이미 실행 중인 코루틴이 없다면 시작
+        if (incrementCoroutine == null)
+        {
+            incrementCoroutine = StartCoroutine(IncrementCounter());
+        }
+    }
+
+    // 버튼을 뗄 때 실행될 메서드
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        // 버튼을 뗀 상태로 변경
+        isButtonPressed = false;
+    }
+
+    // 숫자를 1초에 한 번씩 증가시키는 코루틴
+    private IEnumerator IncrementCounter()
+    {
+        while (isButtonPressed)
+        {
+            // 숫자를 1씩 증가시키고 디버그 로그로 출력
+            counter++;
+            //Debug.Log("Counter: " + counter);
+
+            yield return new WaitForSeconds(1.0f); // 1초 대기
+        }
+
+        // 버튼을 뗄 때 코루틴이 중지되면 incrementCoroutine을 null로 초기화
+        incrementCoroutine = null;
+    }
 
 
 

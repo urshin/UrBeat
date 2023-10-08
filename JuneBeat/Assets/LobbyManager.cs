@@ -148,6 +148,9 @@ public class LobbyManager : MonoBehaviour
     List<GameObject> DifBtn = new List<GameObject>();
     public void CreatDif()
     {
+       
+
+        
         GameManager.Instance.ChangeState(CurrentState.LobbyDifficultSelect); //현재 상태 바꿈
         for (int i = 0; i < Row1.Count; i++)
         {

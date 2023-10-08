@@ -14,11 +14,99 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);//씬이 전환이 되어도 파괴되지 않고 유지됨.
         }
     }
+    public AudioSource audiosource;
+
+    public AudioClip[] audioClips;
 
 
+    //private void Update()
+    //{
+    //    if(GameManager.Instance.currentState == CurrentState.Ingame)
+    //    {
+    //       audiosource.Stop();
+    //    }
+    //}
+    public void StopBGM()
+    {
+        audiosource.Stop();
+    }
+    public void StartBGM()
+    {
+        audiosource.Play();
+    }
+    private void Start()
+    {
+       // audiosource = GetComponent<AudioSource>();
+        audioClips = Resources.LoadAll<AudioClip>("Mp3");
+
+    }
+
+    public int songNumber;
+    public void SongPreview()
+    {
+        string currentSongNameModified = GameManager.Instance.CurrentSongName.Replace("_", " ").ToLower(); // 언더스코어를 띄어쓰기로 변경하고 소문자로 변환
+        for (songNumber = 0; songNumber < audioClips.Length; songNumber++)
+        {
+            if (audioClips[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
+            {
+                Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
+                audiosource.clip = audioClips[songNumber];
+                audiosource.Play();
+                break; // 오디오 클립을 찾았으므로 반복문 종료
+            }
+
+        }
+        //audiosource.Play();
+        // GameManager.Instance.CurrentSong
+    }
+
+    public bool SongStart;
+    public void SongPlay()
+    {
+        string currentSongNameModified = GameManager.Instance.CurrentSongName.Replace("_", " ").ToLower(); // 언더스코어를 띄어쓰기로 변경하고 소문자로 변환
+        for (songNumber = 0; songNumber < audioClips.Length; songNumber++)
+        {
+            if (audioClips[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
+            {
+                Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
+                audiosource.clip = audioClips[songNumber];
+                audiosource.Play();
+                break; // 오디오 클립을 찾았으므로 반복문 종료
+            }
+
+        }
+        //audiosource.Play();
+        // GameManager.Instance.CurrentSong
+    }
 
 
 
 
 
 }
+
+    //public void SongPreview2()
+    //{
+    //    string currentSongName = GameManager.Instance.CurrentSongName.ToString().Replace("_", " "); // 언더스코어를 띄어쓰기로 변경
+
+    //    for (int i = 0; i < audioClips.Length; i++)
+    //    {
+    //        if (audioClips[i] && audioClips[i].name.Contains(currentSongName))
+    //        {
+    //            Debug.Log($"오디오 클립 '{currentSongName}'의 배열 순서: " + i);
+    //            audiosource.clip = audioClips[i];
+    //            break; // 오디오 클립을 찾았으므로 반복문 종료
+    //        }
+    //    }
+
+    //    if (audiosource.clip != null)
+    //    {
+    //        audiosource.Play();
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning($"오디오 클립 '{currentSongName}'를 찾을 수 없습니다.");
+    //    }
+    //    // currentSongName 사용
+    //}
+

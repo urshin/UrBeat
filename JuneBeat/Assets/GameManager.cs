@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
 
     [Header("게임마스터 권한")]
     public bool autoPlay;
+    public bool TimeStopButton;
+
 
 
     [Header("곡 정보")]
@@ -72,6 +74,24 @@ public class GameManager : MonoBehaviour
         lines = textAsset.text.Split('\n');
     }
 
+
+
+    private void Update()
+    {
+        TimeStop();
+    }
+    void TimeStop()
+    {
+        if(TimeStopButton)
+        {
+            Time.timeScale = 0;
+
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
 
 
 

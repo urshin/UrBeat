@@ -24,6 +24,7 @@ public class LobbySongBtn : MonoBehaviour
         LobbyManager.Instance.MusicImage.sprite = gameObject.GetComponent<Image>().sprite;
         LobbyManager.Instance.Title.text = gameObject.name;
         GameManager.Instance.FindTextFile();
+        SoundManager.Instance.SongPreview();
     }
 
     void Update()

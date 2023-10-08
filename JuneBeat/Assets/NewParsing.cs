@@ -57,10 +57,13 @@ public class NewParsing : MonoBehaviour
         //게임 매니저에게 현재 곡정보. 알려주기
         GameManager.Instance.CurrentSongAndDiff = GameManager.Instance.CurrentSongName + "_" + GameManager.Instance.CurrentDifficult;
         isSongEnd = false;
+        SoundManager.Instance.StopBGM();
+        songStart = true;
         ShowInfoSong();
         ReadSongTxt();
         PositionTimingParsing();
-       
+
+
     }
 
 
@@ -72,7 +75,7 @@ public class NewParsing : MonoBehaviour
     {
         musicBPM = GameManager.Instance.BPM; //음악 BPM 넣기
         LineNum = (int)GameManager.Instance.findrasmemo;
-
+        currentNoteCount = (int)GameManager.Instance.findrasmemo;
     }
 
     [SerializeField] int lineCount;
@@ -83,7 +86,9 @@ public class NewParsing : MonoBehaviour
         textAsset = Resources.Load<TextAsset>(filePath);
         Debug.Log(filePath);
         lines = textAsset.text.Split('\n');
-        lineCount = lines.Length; //줄을 추가하여 줄의 수 구함
+        lineCount = textAsset.text.Length; //줄을 추가하여 줄의 수 구함
+        ReadNotePositonAll();//전체 포지션 읽기.
+
     }
 
     private void ReadNextNotePosition() //다음줄 읽기 함수
@@ -123,6 +128,30 @@ public class NewParsing : MonoBehaviour
     }
 
 
+    public List<string> allNotePosition = new List<string>();
+    [SerializeField] int allLineNum;
+    void ReadNotePositonAll()
+    {
+        allLineNum = (int)GameManager.Instance.findrasmemo;
+        allNotePosition = new List<string>();
+        while (true)
+        {
+            if (IsNumber(lines[allLineNum])) //읽은 라인이 숫자면
+            {
+                //NotePosision = new List<string>();
+
+            }
+            if (!IsNumber(lines[allLineNum]) && lines[allLineNum].Length >= 4) //읽은 라인이 숫자가 아니고 4자리 이상이라면
+            {
+                allNotePosition.Add(lines[allLineNum].Substring(0, 4));
+
+            }
+            allLineNum++; //다음줄
+        }
+    }
+
+
+
 
 
     public void mappingNote(List<string> notepo) //딕셔너리와 연동하는 함수
@@ -143,9 +172,14 @@ public class NewParsing : MonoBehaviour
 
     public List<char> ccharactor = new List<char>();
 
+    bool songStart;
     private void Update()
     {
-
+        if(TimerEnd && songStart)
+        {
+            SoundManager.Instance.StartBGM();
+            songStart = false;
+        }
     }
 
     private void ListingNoteTiming()
@@ -169,7 +203,7 @@ public class NewParsing : MonoBehaviour
     [SerializeField] Sprite[] ReadyGo;
     [SerializeField] Image MarkPositionSprite;
 
-    bool TimerEnd = false;
+    public bool TimerEnd = false;
     void Timer()
     {
         timer += Time.deltaTime; // 프레임 간격에 따른 시간 업데이트
@@ -183,7 +217,7 @@ public class NewParsing : MonoBehaviour
             if (countdown >= 1)
             {
                 MarkPositionSprite.sprite = ReadyGo[(int)countdown - 1];
-               
+
             }
 
             if (countdown <= 0) // 타이머가 0 이하로 내려가면
@@ -206,34 +240,38 @@ public class NewParsing : MonoBehaviour
         }
     }
 
+    //[SerializeField] int NoteCounting;
     private void FixedUpdate()
     {
-        tikTime = (stdBPM / musicBPM) * (musicTempo / stdTempo); //노트 출력 속도
+        // 노트 출력 속도 계산
+        tikTime = (stdBPM / musicBPM) * (musicTempo / stdTempo);
         nextTime += Time.deltaTime;
 
+        // 타이머가 종료되지 않았을 때만 타이머 실행
         if (!TimerEnd)
         {
             Timer();
-
         }
 
-        if (nextTime >= tikTime) // '>='로 변경
+        // 주어진 시간 간격마다 노트를 출력
+        if (nextTime >= tikTime)
         {
+            // 노트 출력 중인지와 타이머가 종료되었는지 확인
             if (!isSongEnd && TimerEnd)
             {
                 StartCoroutine(PlayTik(tikTime));
             }
 
-            nextTime -= tikTime; // -= 연산 추가
+            nextTime -= tikTime; // 다음 노트까지의 시간 계산
         }
 
+        // 노래가 종료되고 게임 상태가 Ingame일 때 결과 화면으로 전환
         if (isSongEnd && GameManager.Instance.currentState == CurrentState.Ingame)
         {
+            StartCoroutine(PlayTik(tikTime));
             GameManager.Instance.currentState = CurrentState.result;
         }
-
     }
-
 
     // 문자열이 숫자인지 확인하는 함수
     bool IsNumber(string str)
@@ -376,13 +414,14 @@ public class NewParsing : MonoBehaviour
         countNoteTiming++;
 
 
+
         if (currentNoteCount > GameManager.Instance.TotalNote)
         {
             //isSongEnd = true;
         }
 
 
-        if (LineNum >= lineCount)
+        if (currentNoteCount >= GameManager.Instance.TotalNote)
         {
             isSongEnd = true;
             Debug.Log("노래 끝났다 나가라");
