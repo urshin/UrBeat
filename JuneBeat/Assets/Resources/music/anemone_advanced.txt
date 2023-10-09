@@ -9,9 +9,10 @@ prelistening = 19.9
 cover = anemone.png
 
 t=200
-
-//r=451
 r=545
+Notes: 545
+
+
 #rasmemo
 2
 口③②① |①－②－|

@@ -12,7 +12,7 @@ cover = nostos.jpg
 
 t=128
 r=1143
-
+Notes: 226
 #rasmemo
 
 // 132, 36.29925

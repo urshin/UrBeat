@@ -10,7 +10,7 @@ cover = tengoku_to_jigoku.jpg
 
 t=195.08
 r=1038
-
+Notes: 623
 #rasmemo
 
 口口口口 |－－－－|

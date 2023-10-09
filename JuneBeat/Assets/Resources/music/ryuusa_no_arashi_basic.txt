@@ -13,6 +13,7 @@ cover = ryuusa_no_arashi.jpg
 
 t=140
 r=448
+Notes: 400
 
 #rasmemo
 

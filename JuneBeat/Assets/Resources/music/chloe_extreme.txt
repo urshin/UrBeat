@@ -11,6 +11,7 @@ cover = chloe.png
 
 t=176
 r=1207
+Notes: 776
 
 #holdbyarrow=1
 #rasmemo

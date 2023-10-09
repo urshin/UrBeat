@@ -11,6 +11,7 @@ cover = megalara_garuda.png
 
 t=180
 r=128
+Notes: 932
 
 #holdbyarrow=1
 #rasmemo

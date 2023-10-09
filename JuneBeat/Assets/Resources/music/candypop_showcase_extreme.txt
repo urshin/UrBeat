@@ -11,6 +11,7 @@ cover = candypop_showcase.jpg
 
 t=170
 r=402
+Notes: 701
 
 #rasmemo
 

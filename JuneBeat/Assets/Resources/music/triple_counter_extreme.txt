@@ -11,6 +11,7 @@ cover = triple_counter.png
 
 t=216
 r=697
+Notes: 921
 
 #holdbyarrow=1
 #rasmemo

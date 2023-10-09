@@ -10,7 +10,7 @@ cover = december_breeze.jpg
 
 t=182
 r=888
-
+Notes: 879
 #rasmemo
 2
 口①①口 |①－②－|

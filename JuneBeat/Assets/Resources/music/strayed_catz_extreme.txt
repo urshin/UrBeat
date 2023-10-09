@@ -12,6 +12,7 @@ cover = strayed_catz.jpg
 
 t=151.51
 r=308
+Notes: 843
 
 #holdbyarrow=1
 #rasmemo

@@ -11,7 +11,7 @@ cover = nagisa_no_koakuma_lovely_radio.jpg  // album cover
 
 t=190
 r=1510
-
+Notes: 875
 #rasmemo
 
 口③④口 |①－②－|

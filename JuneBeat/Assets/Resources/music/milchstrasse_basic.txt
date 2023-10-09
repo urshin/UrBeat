@@ -11,7 +11,7 @@ cover = milchstrasse.png
 
 t=188.99
 r=69
-
+Notes: 240
 #rasmemo
 
 1

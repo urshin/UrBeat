@@ -25,7 +25,29 @@ public class NewParsing : MonoBehaviour
 
     public Dictionary<int, char> symbolToIndex1 = new Dictionary<int, char>
     {
-         {0, ' '},  {1, ' '},  {2, ' '},  {3, ' '},
+         //{0, ' '},  {1, ' '},  {2, ' '},  {3, ' '},
+         //{4, ' '},  {5, ' '},  {6, ' '},  {7, ' '},
+         //{8, ' '},  {9, ' '},  {10, ' '}, {11, ' '},
+         //{12, ' '}, {13, ' '}, {14, ' '}, {15, ' '},
+
+         //{0+16, ' '},  {1+16, ' '},  {2+16, ' '},  {3+16, ' '},
+         //{4+16, ' '},  {5+16, ' '},  {6+16, ' '},  {7+16, ' '},
+         //{8+16, ' '},  {9+16, ' '},  {10+16, ' '}, {11+16, ' '},
+         //{12+16, ' '}, {13+16, ' '}, {14+16, ' '}, {15+16, ' '},
+
+         //{0+32, ' '},  {1+32, ' '},  {2+32, ' '},  {3+32, ' '},
+         //{4+32, ' '},  {5+32, ' '},  {6+32, ' '},  {7+32, ' '},
+         //{8+32, ' '},  {9+32, ' '},  {10+32, ' '}, {11+32, ' '},
+         //{12+32, ' '}, {13+32, ' '}, {14+32, ' '}, {15+32, ' '},
+
+         //{0+48, ' '},  {1+48, ' '},  {2+48, ' '},  {3+48, ' '},
+         //{4+48, ' '},  {5+48, ' '},  {6+48, ' '},  {7+48, ' '},
+         //{8+48, ' '},  {9+48, ' '},  {10+48, ' '}, {11+48, ' '},
+         //{12+48, ' '}, {13+48, ' '}, {14+48, ' '}, {15+48, ' '},
+    };
+    public Dictionary<int, char> symbolToIndex2 = new Dictionary<int, char>
+    {
+        {0, ' '},  {1, ' '},  {2, ' '},  {3, ' '},
          {4, ' '},  {5, ' '},  {6, ' '},  {7, ' '},
          {8, ' '},  {9, ' '},  {10, ' '}, {11, ' '},
          {12, ' '}, {13, ' '}, {14, ' '}, {15, ' '},
@@ -39,8 +61,12 @@ public class NewParsing : MonoBehaviour
          {4+32, ' '},  {5+32, ' '},  {6+32, ' '},  {7+32, ' '},
          {8+32, ' '},  {9+32, ' '},  {10+32, ' '}, {11+32, ' '},
          {12+32, ' '}, {13+32, ' '}, {14+32, ' '}, {15+32, ' '},
-    };
 
+         {0+48, ' '},  {1+48, ' '},  {2+48, ' '},  {3+48, ' '},
+         {4+48, ' '},  {5+48, ' '},  {6+48, ' '},  {7+48, ' '},
+         {8+48, ' '},  {9+48, ' '},  {10+48, ' '}, {11+48, ' '},
+         {12+48, ' '}, {13+48, ' '}, {14+48, ' '}, {15+48, ' '},
+    };
 
 
     [Header("BPM관련")]
@@ -154,7 +180,7 @@ public class NewParsing : MonoBehaviour
 
 
 
-    public void mappingNote(List<string> notepo) //딕셔너리와 연동하는 함수
+    public void mappingNote1(List<string> notepo) //딕셔너리와 연동하는 함수
     {
         symbolToIndex1.Clear();
         int p = 0;
@@ -169,13 +195,31 @@ public class NewParsing : MonoBehaviour
         }
 
     }
+    public void mappingNote(List<string> notepo)
+    {
+
+        symbolToIndex1.Clear();
+        int p = 0;
+        for (int j = 0; j < notepo.Count; j++)
+        {
+            for (int k = 0; k < notepo[j].Length; k++)
+            {
+                int key = j * notepo[j].Length + k; // key를 j*k로 설정
+                char value = notepo[j][k]; // 문자를 리스트의 문자로 설정
+                symbolToIndex1.Add(key, value);
+                //symbolToIndex1[key] = value;
+            }
+        }
+    }
+
+
 
     public List<char> ccharactor = new List<char>();
 
     bool songStart;
     private void Update()
     {
-        if(TimerEnd && songStart)
+        if (TimerEnd && songStart)
         {
             SoundManager.Instance.StartBGM();
             songStart = false;
@@ -291,23 +335,7 @@ public class NewParsing : MonoBehaviour
     List<int> LongNoteOrder = new List<int>(); //롱노트 순서
     public char LongNoteTimingCharactor;
 
-    public Dictionary<int, char> symbolToIndex2 = new Dictionary<int, char>
-    {
-         {0, ' '},  {1, ' '},  {2, ' '},  {3, ' '},
-         {4, ' '},  {5, ' '},  {6, ' '},  {7, ' '},
-         {8, ' '},  {9, ' '},  {10, ' '}, {11, ' '},
-         {12, ' '}, {13, ' '}, {14, ' '}, {15, ' '},
 
-         {0+16, ' '},  {1+16, ' '},  {2+16, ' '},  {3+16, ' '},
-         {4+16, ' '},  {5+16, ' '},  {6+16, ' '},  {7+16, ' '},
-         {8+16, ' '},  {9+16, ' '},  {10+16, ' '}, {11+16, ' '},
-         {12+16, ' '}, {13+16, ' '}, {14+16, ' '}, {15+16, ' '},
-
-         {0+32, ' '},  {1+32, ' '},  {2+32, ' '},  {3+32, ' '},
-         {4+32, ' '},  {5+32, ' '},  {6+32, ' '},  {7+32, ' '},
-         {8+32, ' '},  {9+32, ' '},  {10+32, ' '}, {11+32, ' '},
-         {12+32, ' '}, {13+32, ' '}, {14+32, ' '}, {15+32, ' '},
-    };
     IEnumerator PlayTik(float tikTime) //BPM에 따라서 노트 생성기
     {
 
@@ -319,40 +347,40 @@ public class NewParsing : MonoBehaviour
             //Debug.Log(NotePosision.Count);
             countNoteTiming = 0;
 
-            symbolToIndex2.Clear();
-            // Dictionary의 모든 엔트리를 순회하면서 원하는 Value를 가진 Key 찾기
-            foreach (var kvp in symbolToIndex1)
-            {
-                if (kvp.Value == '＜')
-                {
-                    symbolToIndex2.Add(kvp.Key, kvp.Value);
-                }
-                if (kvp.Value == '＞')
-                {
-                    symbolToIndex2.Add(kvp.Key, kvp.Value);
-                }
-                if (kvp.Value == '∨')
-                {
-                    symbolToIndex2.Add(kvp.Key, kvp.Value);
-                }
-                if (kvp.Value == '∧')
-                {
-                    symbolToIndex2.Add(kvp.Key, kvp.Value);
-                }
-            }
+            //symbolToIndex2.Clear();
+            //// Dictionary의 모든 엔트리를 순회하면서 원하는 Value를 가진 Key 찾기
+            //foreach (var kvp in symbolToIndex1)
+            //{
+            //    if (kvp.Value == '＜')
+            //    {
+            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+            //    }
+            //    if (kvp.Value == '＞')
+            //    {
+            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+            //    }
+            //    if (kvp.Value == '∨')
+            //    {
+            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+            //    }
+            //    if (kvp.Value == '∧')
+            //    {
+            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+            //    }
+            //}
 
 
-            foreach (var kvp in symbolToIndex1)
-            {
-                if (kvp.Value == '―')
-                {
-                    symbolToIndex2.Add(kvp.Key, kvp.Value);
-                }
-                if (kvp.Value == '｜')
-                {
-                    symbolToIndex2.Add(kvp.Key, kvp.Value);
-                }
-            }
+            //foreach (var kvp in symbolToIndex1)
+            //{
+            //    if (kvp.Value == '―')
+            //    {
+            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+            //    }
+            //    if (kvp.Value == '｜')
+            //    {
+            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+            //    }
+            //}
 
             // 찾은 모든 Key를 디버그 로그로 출력
             //foreach (var key in symbolToIndex2)
@@ -393,7 +421,11 @@ public class NewParsing : MonoBehaviour
                 if (kvp.Value == ccharactor[countNoteTiming])
                 {
                     int p = kvp.Key;
-                    if (p >= 32) // kvp.Key 값이 32 이상일 때
+                    if (p >= 48) // kvp.Key 값이 48 이상일 때
+                    {
+                        p -= 48;
+                    }
+                    else if (p >= 32) // kvp.Key 값이 32 이상일 때
                     {
                         p -= 32;
                     }
@@ -409,7 +441,7 @@ public class NewParsing : MonoBehaviour
                     currentNoteCount++;
                 }
             }
-
+           
         }
         countNoteTiming++;
 
@@ -428,5 +460,5 @@ public class NewParsing : MonoBehaviour
         }
         yield return new WaitForSeconds(tikTime);
     }
-
+    
 }

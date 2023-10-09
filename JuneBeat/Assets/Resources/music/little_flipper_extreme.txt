@@ -11,6 +11,7 @@ cover = little_flipper.png
 
 t=165
 r=174
+Notes: 688
 
 #rasmemo
 

@@ -10,8 +10,8 @@ prelistening = 72.0
 cover = aleatrik.png
 
 t=138
-r=914
-
+r=731
+Notes: 731
 #holdbyarrow=1
 #rasmemo
 

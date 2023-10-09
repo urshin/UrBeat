@@ -10,7 +10,7 @@ cover = energy.jpg
 
 t=170
 r=51
-
+Notes: 567
 #rasmemo
 1
 口口口口 |－－－－|

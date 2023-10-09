@@ -11,7 +11,7 @@ cover = athletic_meet_of_sound_toy.jpg
 
 t=190
 r=841
-
+Notes: 645
 #rasmemo
 
 口口口口 |－－－－|

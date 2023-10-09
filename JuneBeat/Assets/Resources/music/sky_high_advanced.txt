@@ -11,7 +11,7 @@ cover = sky_high.jpg
 
 t=153
 r=1655
-
+Notes: 872
 #holdbyarrow=1
 
 #rasmemo

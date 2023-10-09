@@ -11,6 +11,7 @@ cover = smooooch.png
 
 t=177.01
 r=2827
+Notes: 637
 
 #rasmemo
 

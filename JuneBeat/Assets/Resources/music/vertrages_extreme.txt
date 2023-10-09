@@ -11,6 +11,7 @@ cover = vertrages.png
 
 t=190
 r=1224
+Notes: 888
 
 #holdbyarrow=1
 #rasmemo

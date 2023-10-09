@@ -12,7 +12,7 @@ cover = turkish_march.jpg
 
 t=150
 r=705
-
+Notes: 827
 #rasmemo
 
 2

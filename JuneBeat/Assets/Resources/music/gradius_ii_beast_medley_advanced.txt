@@ -11,6 +11,7 @@ cover = gradius_ii_beast_medley.png
 
 t=190
 r=61
+Notes: 417
 
 #rasmemo
 

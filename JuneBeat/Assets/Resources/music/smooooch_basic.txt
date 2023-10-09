@@ -11,7 +11,7 @@ cover = smooooch.png
 
 t=177.01
 r=2827
-
+Notes: 255
 #rasmemo
 
 口口口口 |①－－－|

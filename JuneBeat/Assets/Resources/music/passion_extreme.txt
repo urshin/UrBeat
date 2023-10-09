@@ -12,6 +12,7 @@ cover = passion.jpg
 
 t=105
 r=683
+Notes: 808
 
 #rasmemo
 

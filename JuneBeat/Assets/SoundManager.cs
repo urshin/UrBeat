@@ -75,8 +75,7 @@ public class SoundManager : MonoBehaviour
             }
 
         }
-        //audiosource.Play();
-        // GameManager.Instance.CurrentSong
+       
     }
 
 
@@ -84,29 +83,3 @@ public class SoundManager : MonoBehaviour
 
 
 }
-
-    //public void SongPreview2()
-    //{
-    //    string currentSongName = GameManager.Instance.CurrentSongName.ToString().Replace("_", " "); // 언더스코어를 띄어쓰기로 변경
-
-    //    for (int i = 0; i < audioClips.Length; i++)
-    //    {
-    //        if (audioClips[i] && audioClips[i].name.Contains(currentSongName))
-    //        {
-    //            Debug.Log($"오디오 클립 '{currentSongName}'의 배열 순서: " + i);
-    //            audiosource.clip = audioClips[i];
-    //            break; // 오디오 클립을 찾았으므로 반복문 종료
-    //        }
-    //    }
-
-    //    if (audiosource.clip != null)
-    //    {
-    //        audiosource.Play();
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning($"오디오 클립 '{currentSongName}'를 찾을 수 없습니다.");
-    //    }
-    //    // currentSongName 사용
-    //}
-

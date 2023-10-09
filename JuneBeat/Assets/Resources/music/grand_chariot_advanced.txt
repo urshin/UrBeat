@@ -11,7 +11,7 @@ cover = grand_chariot.jpg
 
 t=191
 r=308
-
+Notes: 451
 #holdbyarrow=1
 #rasmemo
 

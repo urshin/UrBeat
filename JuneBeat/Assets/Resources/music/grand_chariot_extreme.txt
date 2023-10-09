@@ -4,7 +4,7 @@
 #artist = xi
 #dif = 3
 #lev = 10
-
+Notes: 833
 m = grand_chariot.mp3
 prelistening = 95.5
 cover = grand_chariot.jpg

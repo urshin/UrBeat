@@ -10,7 +10,7 @@ cover = chaplet.png
 
 t=200
 r=593
-
+Notes: 772
 #rasmemo
 2
 口口口口 |－－－－|

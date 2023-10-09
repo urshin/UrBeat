@@ -11,6 +11,7 @@ cover = fukasetsufukasetsuten.png
 
 t=140
 r=1039
+Notes: 338
 
 #holdbyarrow=1
 #rasmemo

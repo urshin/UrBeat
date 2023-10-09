@@ -1,3 +1,5 @@
+//https://w.atwiki.jp/cosmos_memo/?cmd=word&word=%E9%81%8B%E5%91%BD&pageid=2814
+
 #title = 運命
 #artist = No.5 Orchestra
 #dif = 3
@@ -8,10 +10,11 @@ m = unmei.mp3
 prelistening = 58.3
 cover = unmei.png
 
-#rasmemo
 
 t=217
 a=856
+Notes: 810
+#rasmemo
 2
 ①①①① |－－①－|
 ③③③③ |②－③－|

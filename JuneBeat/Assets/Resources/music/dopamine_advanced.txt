@@ -11,6 +11,7 @@ cover = dopamine.jpg
 
 t=200
 r=1104
+Notes: 684
 
 #rasmemo
 

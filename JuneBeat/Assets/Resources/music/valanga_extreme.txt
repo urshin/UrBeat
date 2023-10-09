@@ -11,6 +11,7 @@ cover = valanga.jpg
 
 t=186
 r=1002
+Notes: 842
 
 #holdbyarrow=1
 

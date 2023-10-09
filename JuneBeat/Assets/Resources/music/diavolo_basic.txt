@@ -10,7 +10,7 @@ cover = diavolo.png
 
 t=160
 r=350
-
+Notes: 357
 #rasmemo
 2
 口口③口 |①－－－|

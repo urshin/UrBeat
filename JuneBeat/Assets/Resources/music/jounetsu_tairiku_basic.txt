@@ -10,6 +10,7 @@ cover = jounetsu_tairiku.png
 
 t=128.07
 r=440
+Notes: 188
 
 #rasmemo
 

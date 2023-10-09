@@ -8,6 +8,7 @@
 m = life_connection.mp3
 prelistening = 14.8
 cover = life_connection.png
+Notes: 582
 
 t=200
 r=168

@@ -11,6 +11,7 @@ cover = oboro.jpg
 
 t=149
 r=567
+Notes: 266
 
 #rasmemo
 

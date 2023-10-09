@@ -12,7 +12,7 @@ cover = mirage_of_the_mirror.png
 
 t=122
 r=764
-
+Notes: 763
 #holdbyarrow=1
 #rasmemo
 

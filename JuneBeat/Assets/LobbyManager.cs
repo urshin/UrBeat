@@ -21,13 +21,14 @@ public class LobbyManager : MonoBehaviour
 
     [SerializeField] Sprite[] LobbyLevelImage;
 
-   
+
     public GameObject[] ImagePosition;
     public GameObject selectBtn;
     public List<GameObject> Row1;
     public List<GameObject> Row2;
     public List<GameObject> Row3;
     float xOffset = 270.0f;
+    float yOffset = 270.0f;
 
     float LeftX;
     float RightX;
@@ -38,6 +39,9 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] GameObject AdvBtn;
     [SerializeField] GameObject BasBtn;
     [SerializeField] GameObject ExtBtn;
+
+
+
 
     public void Awake()
     {
@@ -62,9 +66,11 @@ public class LobbyManager : MonoBehaviour
         Row1 = new List<GameObject>();
         Row2 = new List<GameObject>();
         Row3 = new List<GameObject>();
+
+
         int Row1Count = 0, Row2Count = 0, Row3Count = 0;
 
-        // 노래 파일들 생성
+        //노래 파일들 생성
         for (int i = 0; i < textures.Length; i++)
         {
             int row = 0;
@@ -77,12 +83,15 @@ public class LobbyManager : MonoBehaviour
             selectObject.GetComponent<Image>().sprite = sprite;
             selectObject.transform.SetParent(GameObject.Find("Canvas").transform);
 
+
+
             // 행 (Row) 결정
-            if (i >= textures.Length / 3 + 1 && i < 1 + (textures.Length - (textures.Length / 3)))
+            //((int)textures.Length/3)
+            if (i >= textures.Length / 3)
             {
                 row = 1;
             }
-            if (i >= (textures.Length - (textures.Length / 3)))
+            if (i >= (textures.Length / 3) * 2)
             {
                 row = 2;
             }
@@ -135,7 +144,7 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] GameObject Guid;
     void Update()
     {
-        
+
     }
     private void FixedUpdate()
     {
@@ -148,48 +157,85 @@ public class LobbyManager : MonoBehaviour
     List<GameObject> DifBtn = new List<GameObject>();
     public void CreatDif()
     {
-       
+        GameManager.Instance.ChangeState(CurrentState.LobbyDifficultSelect); // 현재 상태 변경
 
-        
-        GameManager.Instance.ChangeState(CurrentState.LobbyDifficultSelect); //현재 상태 바꿈
-        for (int i = 0; i < Row1.Count; i++)
-        {
-            Destroy(Row1[i]);
-        }
-        for (int i = 0; i < Row2.Count; i++)
-        {
-            Destroy(Row2[i]);
-        }
-        for (int i = 0; i < Row3.Count; i++)
-        {
-            Destroy(Row3[i]);
-        }
-
-        Row1.Clear();
-        Row2.Clear();
-        Row3.Clear();
+        // 모든 리스트를 한 번에 처리하고 초기화
+        DestroyAllAndClearList(Row1);
+        DestroyAllAndClearList(Row2);
+        DestroyAllAndClearList(Row3);
 
         DifBtn = new List<GameObject>();
-        if (GameManager.Instance.CurrentSongDiffifultList.Contains(GameManager.Instance.CurrentSongName + "_basic"))
-        {
-            GameObject basic = Instantiate(BasBtn, ImagePosition[0].transform.position, Quaternion.identity);
-            basic.transform.SetParent(GameObject.Find("Canvas").transform);
-            DifBtn.Add(basic);
-        }
-        if (GameManager.Instance.CurrentSongDiffifultList.Contains(GameManager.Instance.CurrentSongName + "_advanced"))
-        {
-            GameObject advanced = Instantiate(AdvBtn, ImagePosition[1].transform.position, Quaternion.identity);
-            advanced.transform.SetParent(GameObject.Find("Canvas").transform);
-            DifBtn.Add(advanced);
-        }
-        if (GameManager.Instance.CurrentSongDiffifultList.Contains(GameManager.Instance.CurrentSongName + "_extreme"))
-        {
-            GameObject extreme = Instantiate(ExtBtn, ImagePosition[2].transform.position, Quaternion.identity);
-            extreme.transform.SetParent(GameObject.Find("Canvas").transform);
-            DifBtn.Add(extreme);
-        }
-        Guid.GetComponent<RectTransform>().SetAsLastSibling(); //가이드 두기
+
+        // 난이도 버튼을 생성하고 DifBtn 리스트에 추가
+        CreateAndAddDifficultyButton(GameManager.Instance.CurrentSongDiffifultList, GameManager.Instance.CurrentSongName + "_basic", BasBtn, ImagePosition[0].transform.position);
+        CreateAndAddDifficultyButton(GameManager.Instance.CurrentSongDiffifultList, GameManager.Instance.CurrentSongName + "_advanced", AdvBtn, ImagePosition[1].transform.position);
+        CreateAndAddDifficultyButton(GameManager.Instance.CurrentSongDiffifultList, GameManager.Instance.CurrentSongName + "_extreme", ExtBtn, ImagePosition[2].transform.position);
+
+        Guid.GetComponent<RectTransform>().SetAsLastSibling(); // 가이드 위치 조정
     }
+
+    private void DestroyAllAndClearList(List<GameObject> list)
+    {
+        foreach (var item in list)
+        {
+            Destroy(item);
+        }
+        list.Clear();
+    }
+
+    private void CreateAndAddDifficultyButton(List<string> difficultyList, string difficultyName, GameObject buttonPrefab, Vector3 position)
+    {
+        if (difficultyList.Contains(difficultyName))
+        {
+            GameObject button = Instantiate(buttonPrefab, position, Quaternion.identity);
+            button.transform.SetParent(GameObject.Find("Canvas").transform);
+            DifBtn.Add(button);
+        }
+    }
+    //public void CreatDif()
+    //{
+
+
+
+    //    GameManager.Instance.ChangeState(CurrentState.LobbyDifficultSelect); //현재 상태 바꿈
+    //    for (int i = 0; i < Row1.Count; i++)
+    //    {
+    //        Destroy(Row1[i]);
+    //    }
+    //    for (int i = 0; i < Row2.Count; i++)
+    //    {
+    //        Destroy(Row2[i]);
+    //    }
+    //    for (int i = 0; i < Row3.Count; i++)
+    //    {
+    //        Destroy(Row3[i]);
+    //    }
+
+    //    Row1.Clear();
+    //    Row2.Clear();
+    //    Row3.Clear();
+
+    //    DifBtn = new List<GameObject>();
+    //    if (GameManager.Instance.CurrentSongDiffifultList.Contains(GameManager.Instance.CurrentSongName + "_basic"))
+    //    {
+    //        GameObject basic = Instantiate(BasBtn, ImagePosition[0].transform.position, Quaternion.identity);
+    //        basic.transform.SetParent(GameObject.Find("Canvas").transform);
+    //        DifBtn.Add(basic);
+    //    }
+    //    if (GameManager.Instance.CurrentSongDiffifultList.Contains(GameManager.Instance.CurrentSongName + "_advanced"))
+    //    {
+    //        GameObject advanced = Instantiate(AdvBtn, ImagePosition[1].transform.position, Quaternion.identity);
+    //        advanced.transform.SetParent(GameObject.Find("Canvas").transform);
+    //        DifBtn.Add(advanced);
+    //    }
+    //    if (GameManager.Instance.CurrentSongDiffifultList.Contains(GameManager.Instance.CurrentSongName + "_extreme"))
+    //    {
+    //        GameObject extreme = Instantiate(ExtBtn, ImagePosition[2].transform.position, Quaternion.identity);
+    //        extreme.transform.SetParent(GameObject.Find("Canvas").transform);
+    //        DifBtn.Add(extreme);
+    //    }
+    //    Guid.GetComponent<RectTransform>().SetAsLastSibling(); //가이드 두기
+    //}
     public bool StopRead;
     int i;
     public void InputSongInfo()
@@ -223,7 +269,7 @@ public class LobbyManager : MonoBehaviour
             if (line.StartsWith("#lev"))
             {
                 float.TryParse(line.Substring(6), out GameManager.Instance.Level);
-                Level.sprite = LobbyLevelImage[(int)GameManager.Instance.Level-1];
+                Level.sprite = LobbyLevelImage[(int)GameManager.Instance.Level - 1];
             }
 
             if (line.StartsWith("t"))
@@ -231,10 +277,10 @@ public class LobbyManager : MonoBehaviour
                 float.TryParse(line.Substring(2), out GameManager.Instance.BPM);
                 BPM.text = line.Substring(2);
             }
-            if (line.StartsWith("r"))
+            if (line.StartsWith("Notes"))
             {
-                float.TryParse(line.Substring(2), out GameManager.Instance.TotalNote);
-                Notes.text = line.Substring(2);
+                float.TryParse(line.Substring(6).Trim(), out GameManager.Instance.TotalNote);
+                Notes.text = line.Substring(6).Trim();
             }
 
             i++;
@@ -257,7 +303,7 @@ public class LobbyManager : MonoBehaviour
         if (Row1.Count == 0)
         {
             CreateSongSelection();
-            
+
         }
 
 
@@ -267,7 +313,7 @@ public class LobbyManager : MonoBehaviour
     public void GoToInGame()
     {
 
-        if (GameManager.Instance.CurrentSongName != null && GameManager.Instance.CurrentDifficult!=null)
+        if (GameManager.Instance.CurrentSongName != null && GameManager.Instance.CurrentDifficult != null)
         {
 
             SceneManager.LoadScene("InGame");
@@ -300,7 +346,9 @@ public class LobbyManager : MonoBehaviour
             StartCoroutine(MoveRowLeft(Row3));
         }
     }
- 
+
+
+
 
     //오른쪽 스크롤 코루틴
     private IEnumerator MoveRight(List<GameObject> row)

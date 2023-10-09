@@ -10,6 +10,7 @@ cover = zz.jpg
 
 t=154
 r=460
+Notes: 956
 
 #rasmemo
 2

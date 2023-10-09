@@ -11,7 +11,7 @@ cover = citrus.png
 
 t=174
 r=621
-
+Notes: 298
 #holdbyarrow=1
 #rasmemo
 

@@ -11,6 +11,7 @@ cover = tenkaranbu.png
 
 t=184
 r=956
+Notes: 656
 
 #rasmemo
 

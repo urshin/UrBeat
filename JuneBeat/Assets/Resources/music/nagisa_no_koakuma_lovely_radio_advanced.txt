@@ -11,7 +11,7 @@ cover = nagisa_no_koakuma_lovely_radio.jpg
 
 t=190
 r=1510
-
+Notes: 590
 #rasmemo
 
 口口口口 |①－②－|

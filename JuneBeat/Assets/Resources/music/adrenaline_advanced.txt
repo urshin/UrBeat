@@ -10,7 +10,8 @@ prelistening = 84.4
 cover = adrenaline.jpg
 
 t=140
-r=578
+r=592
+Notes: 592
 
 #rasmemo
 

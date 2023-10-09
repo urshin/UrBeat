@@ -11,6 +11,7 @@ cover = sola.jpg
 
 t=135
 r= -259
+Notes: 744
 
 #rasmemo
 

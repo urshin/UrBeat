@@ -11,6 +11,7 @@ cover = angelic_jelly.jpg
 
 t=200
 r=1007
+Notes: 425
 
 #holdbyarrow=1
 #rasmemo

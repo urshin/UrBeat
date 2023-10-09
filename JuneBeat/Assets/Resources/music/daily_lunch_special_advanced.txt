@@ -10,7 +10,7 @@ cover = daily_lunch_special.png
 
 t=205
 r=255
-
+Notes: 684
 #rasmemo
 1
 口口口口

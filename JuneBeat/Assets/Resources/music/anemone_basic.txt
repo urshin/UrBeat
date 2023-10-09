@@ -10,7 +10,7 @@ cover = anemone.png
 
 t=200
 r=451
-
+Notes: 286
 #rasmemo
 2
 口口口口 |①－－－|

@@ -10,8 +10,8 @@ prelistening = 0.5
 cover = ac_version_disney_tsumtsum_medley.png
 
 t=146
-r=888
-
+r=530
+Notes: 286
 #rasmemo
 
 2

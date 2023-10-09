@@ -10,7 +10,7 @@ cover = diavolo.png
 
 t=160
 r=350
-
+Notes: 692
 #rasmemo
 2
 ⑨⑩⑪⑥ |①－－－|

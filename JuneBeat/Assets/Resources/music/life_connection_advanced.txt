@@ -11,7 +11,7 @@ cover = life_connection.png
 
 t=200
 r=168
-
+Notes: 453
 #rasmemo
 
 1

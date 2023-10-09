@@ -10,7 +10,7 @@ cover = wonder_walker.png
 
 t=165
 r=364
-
+Notes: 732
 #rasmemo
 
 1

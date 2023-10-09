@@ -11,7 +11,7 @@ cover = dynasty.jpg
 
 t=189
 r=1032
-
+Notes: 378
 #rasmemo
 2
 口口口口 |①－－－|

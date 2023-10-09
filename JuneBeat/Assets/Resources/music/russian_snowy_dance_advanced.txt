@@ -13,7 +13,7 @@ cover = russian_snowy_dance.png
 
 t=170.1
 r=365
-
+Notes: 588
 #rasmemo
 
 2

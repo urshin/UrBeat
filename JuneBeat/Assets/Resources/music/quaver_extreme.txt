@@ -11,6 +11,7 @@ cover = quaver.png
 
 t=182
 r=0  //330
+Notes: 641
 
 #rasmemo
 1
