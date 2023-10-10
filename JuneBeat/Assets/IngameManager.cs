@@ -20,7 +20,7 @@ public class IngameManager : MonoBehaviour
     [SerializeField] Sprite[] DifSprite;
     [SerializeField] Sprite[] LevelSprite;
 
-    
+
 
     [SerializeField] Sprite[] IngameScoreSprite;
     [SerializeField] Image[] Score;
@@ -54,9 +54,10 @@ public class IngameManager : MonoBehaviour
     {
         PositionNumber();
         ComboImageSystem();
-        if(GameManager.Instance.currentState == CurrentState.result && showResult)
+        if (GameManager.Instance.currentState == CurrentState.result && showResult)
         {
             Invoke("Result", 3.0f);
+            showResult = false;
         }
 
     }
@@ -64,24 +65,7 @@ public class IngameManager : MonoBehaviour
     private void ComboImageSystem()
     {
 
-        ////간략버전
-        //int combo = (int)DataManager.Instance.Combo;
 
-        //for (int i = 0; i < ComboImage.transform.childCount; i++)
-        //{
-        //    GameObject comboObject = ComboImage.transform.GetChild(i).gameObject;
-        //    int digit = (combo / (int)Mathf.Pow(10, i)) % 10;
-
-        //    if (combo > 0 && i < 4)
-        //    {
-        //        comboObject.SetActive(true);
-        //        comboObject.GetComponent<Image>().sprite = ComboImageSprite[digit];
-        //    }
-        //    else
-        //    {
-        //        comboObject.SetActive(false);
-        //    }
-        //}
 
         int combo = (int)DataManager.Instance.Combo;
 
@@ -199,26 +183,172 @@ public class IngameManager : MonoBehaviour
 
 
 
-    bool showResult;
+    bool showResult; // 결과를 표시할지 여부를 나타내는 변수
 
     void Result()
     {
+        // 데이터 매니저에서 총 점수를 가져옴
         int totalScore = (int)DataManager.Instance.totalScore;
 
+        // 총 점수를 기반으로 등급을 가져옴
         string rating = GetRating(totalScore);
+
+        // 등급과 총 점수를 디버그 로그에 출력
         Debug.Log(rating + " - " + totalScore);
 
+        // 총 점수를 기반으로 스프라이트 인덱스를 가져옴
         int spriteIndex = GetSpriteIndex(totalScore);
+
+        // ScoreImage의 스프라이트를 ScoreSprite 배열에서 가져온 스프라이트로 설정
         ScoreImage.sprite = ScoreSprite[spriteIndex];
 
-        StartCoroutine(FadeInAlpha());
+        // 알파값을 서서히 페이드 인하는 코루틴 실행
+        StartCoroutine(ShowingScore());
 
+        // 결과 표시를 비활성화
         showResult = false;
+
     }
+
+    [SerializeField] Sprite[] ClearExelFailed;
+    [SerializeField] Image CEF;
+    [SerializeField] Image FullCombo;
+    [SerializeField] Image Combo;
+    [SerializeField] GameObject comboNum;
+    [SerializeField] Image Rating;
+    [SerializeField] float WaitingTime = 3f;
+
+
+    IEnumerator ShowingScore()
+    {
+        if (DataManager.Instance.totalScore >= DataManager.Instance.BaseScore) //엑셀런트
+        {
+            CEF.sprite = ClearExelFailed[0];
+            StartCoroutine(FadeInAlpha(CEF));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            StartCoroutine(FadeOutAlpha(CEF));
+
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+
+            StartCoroutine(FadeInAlpha(FullCombo));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            StartCoroutine(FadeOutAlpha(FullCombo));
+
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+
+            StartCoroutine(FadeInAlpha(Combo));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            ResultCombo(true);
+            ScoreImage.sprite = ScoreSprite[GetSpriteIndex((int)DataManager.Instance.totalScore)];
+            StartCoroutine(FadeInAlpha(Rating));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            StartCoroutine(FadeInAlpha(ScoreImage));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+
+
+        }
+        else if (DataManager.Instance.totalScore < (DataManager.Instance.BaseScore / 10) * 6) //실패
+        {
+            CEF.sprite = ClearExelFailed[2];
+            StartCoroutine(FadeInAlpha(CEF));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            StartCoroutine(FadeOutAlpha(CEF));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+
+            StartCoroutine(FadeInAlpha(Combo));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            ResultCombo(true);
+            ScoreImage.sprite = ScoreSprite[GetSpriteIndex((int)DataManager.Instance.totalScore)];
+            StartCoroutine(FadeInAlpha(Rating));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            StartCoroutine(FadeInAlpha(ScoreImage));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+        }
+        else //기본
+        {
+            CEF.sprite = ClearExelFailed[1];
+            StartCoroutine(FadeInAlpha(CEF));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            StartCoroutine(FadeOutAlpha(CEF));
+            if (GameManager.Instance.MaxComboNum == DataManager.Instance.Combo) //풀콤보일때
+            {
+                StartCoroutine(FadeInAlpha(FullCombo));
+                yield return new WaitForSeconds(fadeDuration + WaitingTime);
+                StartCoroutine(FadeOutAlpha(FullCombo));
+            }
+
+            StartCoroutine(FadeInAlpha(Combo));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            ResultCombo(true);
+            ScoreImage.sprite = ScoreSprite[GetSpriteIndex((int)DataManager.Instance.totalScore)];
+            StartCoroutine(FadeInAlpha(Rating));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+            StartCoroutine(FadeInAlpha(ScoreImage));
+            yield return new WaitForSeconds(fadeDuration + WaitingTime);
+        }
+
+
+
+
+
+
+    }
+
+
+
+
+    private void ResultCombo(bool on)
+    {
+        if (on)
+        {
+            int combo = (int)DataManager.Instance.Combo;
+            GameObject ComboOne = comboNum.transform.GetChild(0).gameObject;
+            GameObject ComboTwo = comboNum.transform.GetChild(1).gameObject;
+            GameObject ComboThree = comboNum.transform.GetChild(2).gameObject;
+            GameObject ComboFour = comboNum.transform.GetChild(3).gameObject;
+            if (combo >= 1)
+            {
+                ComboOne.SetActive(true);
+                ComboOne.GetComponent<Image>().sprite = ComboImageSprite[combo % 10];
+            }
+            if (combo >= 10)
+            {
+                ComboTwo.SetActive(true);
+                ComboTwo.GetComponent<Image>().sprite = ComboImageSprite[(combo / 10) % 10];
+            }
+            if (combo >= 100)
+            {
+                ComboThree.gameObject.SetActive(true);
+                ComboThree.gameObject.GetComponent<Image>().sprite = ComboImageSprite[(combo / 100) % 10];
+            }
+            if (combo >= 1000)
+            {
+                ComboFour.gameObject.SetActive(true);
+                ComboFour.gameObject.GetComponent<Image>().sprite = ComboImageSprite[(combo / 1000) % 10];
+            }
+            if (combo <= 0)
+            {
+                for (int i = 0; i < comboNum.transform.childCount; i++)
+                {
+                    comboNum.transform.GetChild(i).gameObject.SetActive(false);
+                }
+            }
+
+        }
+        if(!on)
+        {
+            for (int i = 0; i < Combo.transform.childCount; i++)
+            {
+                comboNum.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+    }
+
 
     string GetRating(int score)
     {
-        if (score < 500000) return "E Rating";
+        if (score < 600000) return "E Rating";
         else if (score < 700000) return "D Rating";
         else if (score < 800000) return "C Rating";
         else if (score < 850000) return "B Rating";
@@ -231,7 +361,7 @@ public class IngameManager : MonoBehaviour
 
     int GetSpriteIndex(int score)
     {
-        if (score < 500000) return 0;
+        if (score < 600000) return 0;
         else if (score < 700000) return 1;
         else if (score < 800000) return 2;
         else if (score < 850000) return 3;
@@ -242,26 +372,38 @@ public class IngameManager : MonoBehaviour
         else return 8;
     }
 
-    private IEnumerator FadeInAlpha()
+    private IEnumerator FadeInAlpha(Image image)
     {
         float startTime = Time.time;
-        Color startColor = ScoreImage.color;
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f);
+        Color startColor = image.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // 알파 채널을 1.0f (완전히 불투명)로 설정
 
-        while (Time.time - startTime < fadeDuration)
+        while (Time.time - startTime < fadeDuration) // fadeDuration 동안 반복
         {
-            float t = (Time.time - startTime) / fadeDuration;
-            ScoreImage.color = Color.Lerp(startColor, endColor, t);
+            float t = (Time.time - startTime) / fadeDuration; // 경과 시간에 따른 보간 계산
+            image.color = Color.Lerp(startColor, endColor, t); // 시작 색과 끝 색 사이를 보간하여 이미지 색상 설정
             yield return null;
         }
 
-        ScoreImage.color = endColor;
+        image.color = endColor; // fadeDuration 동안의 보간이 끝나면 이미지 색상을 최종 색상으로 설정
     }
 
 
+    private IEnumerator FadeOutAlpha(Image image)
+    {
+        float startTime = Time.time;
+        Color startColor = image.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0.0f); // 알파 채널을 0.0f (완전히 투명)로 설정
 
+        while (Time.time - startTime < fadeDuration) // fadeDuration 동안 반복
+        {
+            float t = (Time.time - startTime) / fadeDuration; // 경과 시간에 따른 보간 계산
+            image.color = Color.Lerp(startColor, endColor, t); // 시작 색과 끝 색 사이를 보간하여 이미지 색상 설정
+            yield return null;
+        }
 
-
+        image.color = endColor; // fadeDuration 동안의 보간이 끝나면 이미지 색상을 최종 색상으로 설정 (완전히 투명)
+    }
 
 
 

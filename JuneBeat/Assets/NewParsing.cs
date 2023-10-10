@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using Unity.Profiling.Editor;
 using Unity.VisualScripting;
@@ -25,25 +26,10 @@ public class NewParsing : MonoBehaviour
 
     public Dictionary<int, char> symbolToIndex1 = new Dictionary<int, char>
     {
-         //{0, ' '},  {1, ' '},  {2, ' '},  {3, ' '},
-         //{4, ' '},  {5, ' '},  {6, ' '},  {7, ' '},
-         //{8, ' '},  {9, ' '},  {10, ' '}, {11, ' '},
-         //{12, ' '}, {13, ' '}, {14, ' '}, {15, ' '},
-
-         //{0+16, ' '},  {1+16, ' '},  {2+16, ' '},  {3+16, ' '},
-         //{4+16, ' '},  {5+16, ' '},  {6+16, ' '},  {7+16, ' '},
-         //{8+16, ' '},  {9+16, ' '},  {10+16, ' '}, {11+16, ' '},
-         //{12+16, ' '}, {13+16, ' '}, {14+16, ' '}, {15+16, ' '},
-
-         //{0+32, ' '},  {1+32, ' '},  {2+32, ' '},  {3+32, ' '},
-         //{4+32, ' '},  {5+32, ' '},  {6+32, ' '},  {7+32, ' '},
-         //{8+32, ' '},  {9+32, ' '},  {10+32, ' '}, {11+32, ' '},
-         //{12+32, ' '}, {13+32, ' '}, {14+32, ' '}, {15+32, ' '},
-
-         //{0+48, ' '},  {1+48, ' '},  {2+48, ' '},  {3+48, ' '},
-         //{4+48, ' '},  {5+48, ' '},  {6+48, ' '},  {7+48, ' '},
-         //{8+48, ' '},  {9+48, ' '},  {10+48, ' '}, {11+48, ' '},
-         //{12+48, ' '}, {13+48, ' '}, {14+48, ' '}, {15+48, ' '},
+         {0, ' '},  {1, ' '},  {2, ' '},  {3, ' '},
+         {4, ' '},  {5, ' '},  {6, ' '},  {7, ' '},
+         {8, ' '},  {9, ' '},  {10, ' '}, {11, ' '},
+         {12, ' '}, {13, ' '}, {14, ' '}, {15, ' '},
     };
     public Dictionary<int, char> symbolToIndex2 = new Dictionary<int, char>
     {
@@ -92,16 +78,11 @@ public class NewParsing : MonoBehaviour
 
     }
 
-
-
-
-
-
     private void ShowInfoSong()
     {
         musicBPM = GameManager.Instance.BPM; //음악 BPM 넣기
         LineNum = (int)GameManager.Instance.findrasmemo;
-        currentNoteCount = (int)GameManager.Instance.findrasmemo;
+        currentNoteCount = 0;
     }
 
     [SerializeField] int lineCount;
@@ -133,9 +114,10 @@ public class NewParsing : MonoBehaviour
     {
         NotePosision = new List<string>(); //리스트 생성
         NoteTimeing = new List<string>();
-        while (GoNextPositionParsing)
+        while (GoNextPositionParsing && LineNum < lines.Length)
         {
-            if (IsNumber(lines[LineNum])) //읽은 라인이 숫자면
+           
+            if (IsNumber(lines[LineNum]) || string.IsNullOrWhiteSpace(lines[LineNum])) //읽은 라인이 숫자면
             {
                 //NotePosision = new List<string>();
 
@@ -152,31 +134,71 @@ public class NewParsing : MonoBehaviour
             LineNum++; //다음줄
         }
     }
-
-
     public List<string> allNotePosition = new List<string>();
     [SerializeField] int allLineNum;
+
     void ReadNotePositonAll()
     {
+        int maxCombo = 0; // MaxCombo를 로컬 변수로 변경
         allLineNum = (int)GameManager.Instance.findrasmemo;
-        allNotePosition = new List<string>();
-        while (true)
+        allNotePosition.Clear(); // 리스트 초기화
+
+        while (allLineNum < lines.Length) // '<=' 대신 '<'를 사용하여 배열 경계를 초과하지 않도록 합니다.
         {
-            if (IsNumber(lines[allLineNum])) //읽은 라인이 숫자면
+            if (!IsNumber(lines[allLineNum]) && lines[allLineNum].Length >= 4)
             {
-                //NotePosision = new List<string>();
+                string notePosition = lines[allLineNum].Substring(0, 4);
+                allNotePosition.Add(notePosition);
 
+                foreach (char character in notePosition)
+                {
+                    // 불필요한 문자를 검사하지 않고, 문자 수만 세도록 변경
+                    if (character != '＜' && character != '＞' && character != '∨' && character != '∧' && character != '―' && character != '｜' && character != '口' && character != '┼')
+                    {
+                        maxCombo++;
+                    }
+                }
             }
-            if (!IsNumber(lines[allLineNum]) && lines[allLineNum].Length >= 4) //읽은 라인이 숫자가 아니고 4자리 이상이라면
-            {
-                allNotePosition.Add(lines[allLineNum].Substring(0, 4));
 
-            }
-            allLineNum++; //다음줄
+            allLineNum++; // 다음 줄로 이동
         }
+
+        GameManager.Instance.MaxComboNum = maxCombo;
     }
 
 
+    // public List<string> allNotePosition = new List<string>();
+    // [SerializeField] int allLineNum;
+    //public int MaxCombo;
+    // void ReadNotePositonAll()
+    // {
+    //     MaxCombo = 0;
+    //     allLineNum = (int)GameManager.Instance.findrasmemo;
+    //     allNotePosition = new List<string>();
+    //     while (allLineNum <= lines.Length)
+    //     {
+    //         if (IsNumber(lines[allLineNum])) //읽은 라인이 숫자면
+    //         {
+    //             //NotePosision = new List<string>();
+
+    //         }
+    //         if (!IsNumber(lines[allLineNum]) && lines[allLineNum].Length >= 4) //읽은 라인이 숫자가 아니고 4자리 이상이라면
+    //         {
+    //             allNotePosition.Add(lines[allLineNum].Substring(0, 4));
+    //            for(int i =0; i < lines[allLineNum].Substring(0, 4).Length;  i++)
+    //             {
+    //                 char charactor = lines[allLineNum][i];
+    //                 if( charactor != '＜' && charactor != '＞' && charactor != '∨' && charactor != '∧' && charactor != '―' &&charactor != '｜' && charactor != '口' && charactor != '┼')
+    //                 {
+    //                     MaxCombo++;
+    //                 }
+    //             }
+    //         }
+    //         allLineNum++; //다음줄
+
+    //     }
+    //     GameManager.Instance.MaxComboNum = MaxCombo;
+    // }
 
 
 
@@ -199,7 +221,7 @@ public class NewParsing : MonoBehaviour
     {
 
         symbolToIndex1.Clear();
-        int p = 0;
+       // int p = 0;
         for (int j = 0; j < notepo.Count; j++)
         {
             for (int k = 0; k < notepo[j].Length; k++)
@@ -287,32 +309,36 @@ public class NewParsing : MonoBehaviour
     //[SerializeField] int NoteCounting;
     private void FixedUpdate()
     {
-        // 노트 출력 속도 계산
-        tikTime = (stdBPM / musicBPM) * (musicTempo / stdTempo);
-        nextTime += Time.deltaTime;
-
-        // 타이머가 종료되지 않았을 때만 타이머 실행
-        if (!TimerEnd)
+        if (GameManager.Instance.currentState == CurrentState.Ingame)
         {
-            Timer();
-        }
+            // 노트 출력 속도 계산
+            tikTime = (stdBPM / musicBPM) * (musicTempo / stdTempo);
+            nextTime += Time.deltaTime;
 
-        // 주어진 시간 간격마다 노트를 출력
-        if (nextTime >= tikTime)
-        {
-            // 노트 출력 중인지와 타이머가 종료되었는지 확인
-            if (!isSongEnd && TimerEnd)
+            // 타이머가 종료되지 않았을 때만 타이머 실행
+            if (!TimerEnd)
             {
-                StartCoroutine(PlayTik(tikTime));
+                Timer();
             }
 
-            nextTime -= tikTime; // 다음 노트까지의 시간 계산
+            // 주어진 시간 간격마다 노트를 출력
+            if (nextTime >= tikTime)
+            {
+                // 노트 출력 중인지와 타이머가 종료되었는지 확인
+                if (!isSongEnd && TimerEnd)
+                {
+                    StartCoroutine(PlayTik(tikTime));
+                }
+
+                nextTime -= tikTime; // 다음 노트까지의 시간 계산
+            }
+
         }
 
         // 노래가 종료되고 게임 상태가 Ingame일 때 결과 화면으로 전환
         if (isSongEnd && GameManager.Instance.currentState == CurrentState.Ingame)
         {
-            StartCoroutine(PlayTik(tikTime));
+            //StartCoroutine(PlayTik(tikTime));
             GameManager.Instance.currentState = CurrentState.result;
         }
     }
@@ -368,7 +394,7 @@ public class NewParsing : MonoBehaviour
             //        symbolToIndex2.Add(kvp.Key, kvp.Value);
             //    }
             //}
-
+            
 
             //foreach (var kvp in symbolToIndex1)
             //{
@@ -416,7 +442,7 @@ public class NewParsing : MonoBehaviour
         {
             foreach (var kvp in symbolToIndex1)
             {
-
+               
                 // 아마 이 타이밍에 롱노트 생성 그거 넣으면 될듯
                 if (kvp.Value == ccharactor[countNoteTiming])
                 {
@@ -425,11 +451,11 @@ public class NewParsing : MonoBehaviour
                     {
                         p -= 48;
                     }
-                    else if (p >= 32) // kvp.Key 값이 32 이상일 때
+                    if (p >= 32) // kvp.Key 값이 32 이상일 때
                     {
                         p -= 32;
                     }
-                    else if (p >= 16) // kvp.Key 값이 16 이상일 때
+                    if (p >= 16) // kvp.Key 값이 16 이상일 때
                     {
                         p -= 16;
                     }
@@ -441,23 +467,15 @@ public class NewParsing : MonoBehaviour
                     currentNoteCount++;
                 }
             }
-           
-        }
-        countNoteTiming++;
-
-
-
-        if (currentNoteCount > GameManager.Instance.TotalNote)
-        {
-            //isSongEnd = true;
-        }
-
-
-        if (currentNoteCount >= GameManager.Instance.TotalNote)
+        if (currentNoteCount >= GameManager.Instance.TotalNote+1)
         {
             isSongEnd = true;
             Debug.Log("노래 끝났다 나가라");
         }
+           
+        }
+        countNoteTiming++;
+
         yield return new WaitForSeconds(tikTime);
     }
     

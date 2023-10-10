@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
     }
     public AudioSource audiosource;
 
-    public AudioClip[] audioClips;
+    public AudioClip[] Song;
 
 
     //private void Update()
@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
        // audiosource = GetComponent<AudioSource>();
-        audioClips = Resources.LoadAll<AudioClip>("Mp3");
+        Song = Resources.LoadAll<AudioClip>("Mp3");
 
     }
 
@@ -45,12 +45,12 @@ public class SoundManager : MonoBehaviour
     public void SongPreview()
     {
         string currentSongNameModified = GameManager.Instance.CurrentSongName.Replace("_", " ").ToLower(); // 언더스코어를 띄어쓰기로 변경하고 소문자로 변환
-        for (songNumber = 0; songNumber < audioClips.Length; songNumber++)
+        for (songNumber = 0; songNumber < Song.Length; songNumber++)
         {
-            if (audioClips[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
+            if (Song[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
             {
                 Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
-                audiosource.clip = audioClips[songNumber];
+                audiosource.clip = Song[songNumber];
                 audiosource.Play();
                 break; // 오디오 클립을 찾았으므로 반복문 종료
             }
@@ -64,12 +64,12 @@ public class SoundManager : MonoBehaviour
     public void SongPlay()
     {
         string currentSongNameModified = GameManager.Instance.CurrentSongName.Replace("_", " ").ToLower(); // 언더스코어를 띄어쓰기로 변경하고 소문자로 변환
-        for (songNumber = 0; songNumber < audioClips.Length; songNumber++)
+        for (songNumber = 0; songNumber < Song.Length; songNumber++)
         {
-            if (audioClips[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
+            if (Song[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
             {
                 Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
-                audiosource.clip = audioClips[songNumber];
+                audiosource.clip = Song[songNumber];
                 audiosource.Play();
                 break; // 오디오 클립을 찾았으므로 반복문 종료
             }

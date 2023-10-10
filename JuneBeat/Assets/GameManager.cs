@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     public float Dif;
     public float Level;
     public float TotalNote;
+    public int MaxComboNum;
     public Sprite MusicImage;
 
     public float findrasmemo;
@@ -79,6 +80,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         TimeStop();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            autoPlay = !autoPlay;
+        }
     }
     void TimeStop()
     {
@@ -100,7 +105,7 @@ public class GameManager : MonoBehaviour
     {
         // Resources 폴더에서 "music" 폴더 안의 모든 TextAsset을 검색
         textAssets = Resources.LoadAll<TextAsset>("music");
-
+        
     }
     public void FindTextFile()
     {

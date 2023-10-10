@@ -38,7 +38,7 @@ public class DataManager : MonoBehaviour
 
     public float totalScore;
 
-    float BaseScore = 1000000;
+    public float BaseScore = 1000000;
     public void SetingScoreSystem() //점수 판정
     {
         Perfect = BaseScore / GameManager.Instance.TotalNote; //총 얻을 수 있는 점수인 1000000를 노트 수만큼 나눈것
