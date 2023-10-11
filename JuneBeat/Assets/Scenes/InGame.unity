@@ -390,10 +390,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dc87a92ed57c49c49828eb2e4e01eaf5, type: 3}
   CEF: {fileID: 1209000880}
   FullCombo: {fileID: 1084220996}
-  Combo: {fileID: 419576503}
-  comboNum: {fileID: 0}
+  Combo: {fileID: 19249862}
+  comboNum: {fileID: 419576503}
   Rating: {fileID: 588479315}
   WaitingTime: 0
+  NextBtn: {fileID: 404919480918811080, guid: aab26d802ed13454987d82a3c9a70408, type: 3}
+  NextBtnPosition: {fileID: 9008557897272200399}
 --- !u!1 &128406971
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,10 +957,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1732798703}
-  - {fileID: 1425905735}
-  - {fileID: 1670225176}
   - {fileID: 1788676741}
+  - {fileID: 1670225176}
+  - {fileID: 1425905735}
+  - {fileID: 1732798703}
   m_Father: {fileID: 1084220995}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1295,7 +1297,6 @@ MonoBehaviour:
   LineNum: 0
   allNotePosition: []
   allLineNum: 0
-  MaxCombo: 0
   ccharactor: 
   ReadyGo:
   - {fileID: 21300000, guid: c7005c1ac9592de41b76ebf8be25ba7a, type: 3}
@@ -2410,46 +2411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461fb9ccf1b53604ab0ca8c6497ba9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: {fileID: 5585041231356662447}
-  Artist: {fileID: 987968245825933868}
-  BPM: {fileID: 8758823326323987635}
-  Notes: {fileID: 6902589586710075779}
-  Dif: {fileID: 0}
-  Level: {fileID: 0}
-  MusicImage: {fileID: 553154175834964288}
-  filePath: 
-  textAsset: {fileID: 0}
-  lines: []
-  musicBPM: 60
-  stdBPM: 60
-  musicTempo: 4
-  stdTempo: 16
-  currentGroup: []
-  notePosion: {fileID: 1998812212}
-  note: {fileID: 2569110996885184591, guid: b7fad8ec4175add479b5642035cbddeb, type: 3}
-  NoteArray:
-  - {fileID: 3609142958994212394}
-  - {fileID: 2038261241078849387}
-  - {fileID: 5276307607029649674}
-  - {fileID: 6307771915823201536}
-  - {fileID: 8086227178353041336}
-  - {fileID: 1780017912793442616}
-  - {fileID: 1078153134718964338}
-  - {fileID: 1875885417696328146}
-  - {fileID: 7376260577910041785}
-  - {fileID: 5209357586378745014}
-  - {fileID: 3090336325789943027}
-  - {fileID: 6553702393025219854}
-  - {fileID: 253360193034078176}
-  - {fileID: 5151419482686409218}
-  - {fileID: 8774274690700135425}
-  - {fileID: 3483209618853253577}
-  TimePosition: []
-  notePosition: []
-  noteTiming: []
-  CurrentNoteCount: 0
-  nextLine: 0
-  noteCount: 0
 --- !u!224 &253360193034078176
 RectTransform:
   m_ObjectHideFlags: 0

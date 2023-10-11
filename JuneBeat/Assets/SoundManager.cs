@@ -14,32 +14,74 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);//씬이 전환이 되어도 파괴되지 않고 유지됨.
         }
     }
-    public AudioSource audiosource;
+    public AudioSource BGMaudiosource;
+    public AudioSource[] EffectaudioSource;
 
     public AudioClip[] Song;
+    public AudioClip[] Effect;
 
 
     //private void Update()
     //{
     //    if(GameManager.Instance.currentState == CurrentState.Ingame)
     //    {
-    //       audiosource.Stop();
+    //       BGMaudiosource.Stop();
     //    }
     //}
     public void StopBGM()
     {
-        audiosource.Stop();
+        BGMaudiosource.Stop();
     }
     public void StartBGM()
     {
-        audiosource.Play();
+        BGMaudiosource.Play();
     }
     private void Start()
     {
-       // audiosource = GetComponent<AudioSource>();
+       // BGMaudiosource = GetComponent<AudioSource>();
         Song = Resources.LoadAll<AudioClip>("Mp3");
+        Effect = Resources.LoadAll<AudioClip>("Effect");
 
     }
+    public void EffectPlay(params string[] EffectNames)
+    {
+        for (int i = 0; i < EffectNames.Length; i++)
+        {
+            // Effect 배열에서 EffectNames[i]를 포함하는 오디오 클립을 찾습니다.
+            AudioClip foundClip = System.Array.Find(Effect, clip => clip.name.Contains(EffectNames[i]));
+
+            if (foundClip != null)
+            {
+                // 찾은 오디오 클립을 EffectaudioSource[i]에 할당하고 재생합니다.
+                EffectaudioSource[i].clip = foundClip;
+                EffectaudioSource[i].Play();
+            }
+            else
+            {
+                // 오디오 클립을 찾지 못한 경우에 대한 처리를 여기에 추가할 수 있습니다.
+                Debug.LogWarning("오디오 클립을 찾을 수 없습니다: " + EffectNames[i]);
+            }
+        }
+    }
+
+    //public void EffectPlay(string EffectName)
+    //{
+    //    // Effect 배열에서 EffectName을 포함하는 오디오 클립을 찾습니다.
+    //    AudioClip foundClip = System.Array.Find(Effect, clip => clip.name.Contains(EffectName));
+
+    //    if (foundClip != null)
+    //    {
+    //        // 찾은 오디오 클립을 EffectaudioSource에 할당하고 재생합니다.
+    //        EffectaudioSource[0].clip = foundClip;
+    //        EffectaudioSource[0].Play();
+    //    }
+    //    else
+    //    {
+    //        // 오디오 클립을 찾지 못한 경우에 대한 처리를 여기에 추가할 수 있습니다.
+    //        Debug.LogWarning("오디오 클립을 찾을 수 없습니다: " + EffectName);
+    //    }
+    //}
+
 
     public int songNumber;
     public void SongPreview()
@@ -50,13 +92,13 @@ public class SoundManager : MonoBehaviour
             if (Song[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
             {
                 Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
-                audiosource.clip = Song[songNumber];
-                audiosource.Play();
+                BGMaudiosource.clip = Song[songNumber];
+                BGMaudiosource.Play();
                 break; // 오디오 클립을 찾았으므로 반복문 종료
             }
 
         }
-        //audiosource.Play();
+        //BGMaudiosource.Play();
         // GameManager.Instance.CurrentSong
     }
 
@@ -69,8 +111,8 @@ public class SoundManager : MonoBehaviour
             if (Song[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
             {
                 Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
-                audiosource.clip = Song[songNumber];
-                audiosource.Play();
+                BGMaudiosource.clip = Song[songNumber];
+                BGMaudiosource.Play();
                 break; // 오디오 클립을 찾았으므로 반복문 종료
             }
 

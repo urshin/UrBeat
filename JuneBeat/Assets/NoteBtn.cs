@@ -25,7 +25,7 @@ public class NoteBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
     public NoteJudge currentJudge;
-    private Button button;
+    private UnityEngine.UI.Button button;
     // Start is called before the first frame update
 
     Animator animator;
@@ -38,7 +38,7 @@ public class NoteBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isBad = false;
         isMiss = false;
         animator = GetComponent<Animator>();
-        button = GetComponent<Button>(); //버튼 component 가져오기
+        button = GetComponent<UnityEngine.UI.Button>(); //버튼 component 가져오기
         //button.onClick.AddListener(judge); //인자가 없을 때 함수 호출
     }
 

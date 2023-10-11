@@ -116,7 +116,7 @@ public class NewParsing : MonoBehaviour
         NoteTimeing = new List<string>();
         while (GoNextPositionParsing && LineNum < lines.Length)
         {
-           
+
             if (IsNumber(lines[LineNum]) || string.IsNullOrWhiteSpace(lines[LineNum])) //읽은 라인이 숫자면
             {
                 //NotePosision = new List<string>();
@@ -221,7 +221,7 @@ public class NewParsing : MonoBehaviour
     {
 
         symbolToIndex1.Clear();
-       // int p = 0;
+        // int p = 0;
         for (int j = 0; j < notepo.Count; j++)
         {
             for (int k = 0; k < notepo[j].Length; k++)
@@ -270,6 +270,47 @@ public class NewParsing : MonoBehaviour
     [SerializeField] Image MarkPositionSprite;
 
     public bool TimerEnd = false;
+
+    //void Timer()
+    //{
+    //    timer += Time.deltaTime; // 프레임 간격에 따른 시간 업데이트
+
+    //    if (timer >= 1.0f) // 1초마다
+    //    {
+    //        timer = 0.0f; // 타이머 초기화
+    //        countdown--; // 남은 시간 감소
+    //        Debug.Log("남은 시간: " + countdown + "초"); // 디버그 로그 출력
+
+    //        if (countdown == 1)
+    //        {
+    //            Debug.Log("Ready");
+    //            MarkPositionSprite.sprite = ReadyGo[0];
+    //        }
+    //        else if (countdown == 0)
+    //        {
+    //            Debug.Log("Go");
+    //            MarkPositionSprite.sprite = ReadyGo[1];
+    //        }
+
+    //        if (countdown <= 0) // 타이머가 0 이하로 내려가면
+    //        {
+    //            Debug.Log("타이머 종료");
+    //            TimerEnd = true;
+
+    //            // MarkPositionSprite를 투명하게 만들기
+    //            Color spriteColor = MarkPositionSprite.color;
+    //            spriteColor.a = 0.0f; // 알파값을 0으로 설정하여 투명하게 만듭니다.
+    //            MarkPositionSprite.color = spriteColor;
+    //        }
+    //        else
+    //        {
+    //            // 타이머가 0이 아닌 경우에 MarkPositionSprite를 보이게 만들기
+    //            Color spriteColor = MarkPositionSprite.color;
+    //            spriteColor.a = 1.0f; // 알파값을 1로 설정하여 보이게 만듭니다.
+    //            MarkPositionSprite.color = spriteColor;
+    //        }
+    //    }
+    //}
     void Timer()
     {
         timer += Time.deltaTime; // 프레임 간격에 따른 시간 업데이트
@@ -282,8 +323,20 @@ public class NewParsing : MonoBehaviour
 
             if (countdown >= 1)
             {
-                MarkPositionSprite.sprite = ReadyGo[(int)countdown - 1];
+                //MarkPositionSprite.sprite = ReadyGo[(int)countdown - 1];
+                if (countdown == 2)
+                {
+                    Debug.Log("Ready");
+                    SoundManager.Instance.EffectPlay("voice_ready");
+                    MarkPositionSprite.sprite = ReadyGo[(int)countdown - 1];
+                }
+                else if (countdown == 1)
+                {
+                    Debug.Log("Go");
+                    SoundManager.Instance.EffectPlay("voice_go");
 
+                    MarkPositionSprite.sprite = ReadyGo[(int)countdown - 1];
+                }
             }
 
             if (countdown <= 0) // 타이머가 0 이하로 내려가면
@@ -324,8 +377,79 @@ public class NewParsing : MonoBehaviour
             // 주어진 시간 간격마다 노트를 출력
             if (nextTime >= tikTime)
             {
+                if (countNoteTiming > ccharactor.Count - 1)
+                {
+                    ReadNextNotePosition();
+                    mappingNote(NotePosision);
+                    ListingNoteTiming();
+                    //Debug.Log(NotePosision.Count);
+                    countNoteTiming = 0;
+
+                    //symbolToIndex2.Clear();
+                    //// Dictionary의 모든 엔트리를 순회하면서 원하는 Value를 가진 Key 찾기
+                    //foreach (var kvp in symbolToIndex1)
+                    //{
+                    //    if (kvp.Value == '＜')
+                    //    {
+                    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+                    //    }
+                    //    if (kvp.Value == '＞')
+                    //    {
+                    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+                    //    }
+                    //    if (kvp.Value == '∨')
+                    //    {
+                    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+                    //    }
+                    //    if (kvp.Value == '∧')
+                    //    {
+                    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+                    //    }
+                    //}
+
+
+                    //foreach (var kvp in symbolToIndex1)
+                    //{
+                    //    if (kvp.Value == '―')
+                    //    {
+                    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+                    //    }
+                    //    if (kvp.Value == '｜')
+                    //    {
+                    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+                    //    }
+                    //}
+
+                    // 찾은 모든 Key를 디버그 로그로 출력
+                    //foreach (var key in symbolToIndex2)
+                    //{
+                    //    Debug.Log("롱노트 시작   " + key.Key + "에 들어가 있는거 " + key.Value);
+                    //    if (key.Value == '＜')
+                    //    {
+                    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+                    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 270f);
+                    //    }
+                    //    if (key.Value == '＞')
+                    //    {
+                    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+                    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+                    //    }
+                    //    if (key.Value == '∨')
+                    //    {
+                    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+                    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                    //    }
+                    //    if (key.Value == '∧')
+                    //    {
+                    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+                    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 180f);
+                    //    }
+
+                    //}
+
+                }
                 // 노트 출력 중인지와 타이머가 종료되었는지 확인
-                if (!isSongEnd && TimerEnd)
+                if (!isSongEnd && TimerEnd&&ccharactor.Count >0)
                 {
                     StartCoroutine(PlayTik(tikTime));
                 }
@@ -365,118 +489,121 @@ public class NewParsing : MonoBehaviour
     IEnumerator PlayTik(float tikTime) //BPM에 따라서 노트 생성기
     {
 
-        if (countNoteTiming > ccharactor.Count - 1)
-        {
-            ReadNextNotePosition();
-            mappingNote(NotePosision);
-            ListingNoteTiming();
-            //Debug.Log(NotePosision.Count);
-            countNoteTiming = 0;
+        //if (countNoteTiming > ccharactor.Count - 1)
+        //{
+        //    ReadNextNotePosition();
+        //    mappingNote(NotePosision);
+        //    ListingNoteTiming();
+        //    //Debug.Log(NotePosision.Count);
+        //    countNoteTiming = 0;
 
-            //symbolToIndex2.Clear();
-            //// Dictionary의 모든 엔트리를 순회하면서 원하는 Value를 가진 Key 찾기
-            //foreach (var kvp in symbolToIndex1)
-            //{
-            //    if (kvp.Value == '＜')
-            //    {
-            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
-            //    }
-            //    if (kvp.Value == '＞')
-            //    {
-            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
-            //    }
-            //    if (kvp.Value == '∨')
-            //    {
-            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
-            //    }
-            //    if (kvp.Value == '∧')
-            //    {
-            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
-            //    }
-            //}
-            
-
-            //foreach (var kvp in symbolToIndex1)
-            //{
-            //    if (kvp.Value == '―')
-            //    {
-            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
-            //    }
-            //    if (kvp.Value == '｜')
-            //    {
-            //        symbolToIndex2.Add(kvp.Key, kvp.Value);
-            //    }
-            //}
-
-            // 찾은 모든 Key를 디버그 로그로 출력
-            //foreach (var key in symbolToIndex2)
-            //{
-            //    Debug.Log("롱노트 시작   " + key.Key + "에 들어가 있는거 " + key.Value);
-            //    if (key.Value == '＜')
-            //    {
-            //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
-            //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 270f);
-            //    }
-            //    if (key.Value == '＞')
-            //    {
-            //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
-            //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
-            //    }
-            //    if (key.Value == '∨')
-            //    {
-            //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
-            //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            //    }
-            //    if (key.Value == '∧')
-            //    {
-            //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
-            //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 180f);
-            //    }
-
-            //}
-
-        }
+        //    //symbolToIndex2.Clear();
+        //    //// Dictionary의 모든 엔트리를 순회하면서 원하는 Value를 가진 Key 찾기
+        //    //foreach (var kvp in symbolToIndex1)
+        //    //{
+        //    //    if (kvp.Value == '＜')
+        //    //    {
+        //    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+        //    //    }
+        //    //    if (kvp.Value == '＞')
+        //    //    {
+        //    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+        //    //    }
+        //    //    if (kvp.Value == '∨')
+        //    //    {
+        //    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+        //    //    }
+        //    //    if (kvp.Value == '∧')
+        //    //    {
+        //    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+        //    //    }
+        //    //}
 
 
-        if (symbolToIndex1.ContainsValue(ccharactor[countNoteTiming]))
+        //    //foreach (var kvp in symbolToIndex1)
+        //    //{
+        //    //    if (kvp.Value == '―')
+        //    //    {
+        //    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+        //    //    }
+        //    //    if (kvp.Value == '｜')
+        //    //    {
+        //    //        symbolToIndex2.Add(kvp.Key, kvp.Value);
+        //    //    }
+        //    //}
+
+        //    // 찾은 모든 Key를 디버그 로그로 출력
+        //    //foreach (var key in symbolToIndex2)
+        //    //{
+        //    //    Debug.Log("롱노트 시작   " + key.Key + "에 들어가 있는거 " + key.Value);
+        //    //    if (key.Value == '＜')
+        //    //    {
+        //    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+        //    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 270f);
+        //    //    }
+        //    //    if (key.Value == '＞')
+        //    //    {
+        //    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+        //    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+        //    //    }
+        //    //    if (key.Value == '∨')
+        //    //    {
+        //    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+        //    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        //    //    }
+        //    //    if (key.Value == '∧')
+        //    //    {
+        //    //        GameObject Long = Instantiate(LongNote, NotePositionArray[key.Key]);
+        //    //        Long.transform.localRotation = Quaternion.Euler(0f, 0f, 180f);
+        //    //    }
+
+        //    //}
+
+        //}
+
+
+        if (symbolToIndex1.ContainsValue(ccharactor[countNoteTiming]) && ccharactor.Count > 0)
         {
             foreach (var kvp in symbolToIndex1)
             {
-               
+
                 // 아마 이 타이밍에 롱노트 생성 그거 넣으면 될듯
                 if (kvp.Value == ccharactor[countNoteTiming])
                 {
-                    int p = kvp.Key;
-                    if (p >= 48) // kvp.Key 값이 48 이상일 때
-                    {
-                        p -= 48;
-                    }
-                    if (p >= 32) // kvp.Key 값이 32 이상일 때
-                    {
-                        p -= 32;
-                    }
-                    if (p >= 16) // kvp.Key 값이 16 이상일 때
-                    {
-                        p -= 16;
-                    }
+                    // int p = kvp.Key;
+
+                    //if (p >= 48) // kvp.Key 값이 48 이상일 때
+                    //{
+                    //    p -= 48;
+                    //}
+                    //if (p >= 32) // kvp.Key 값이 32 이상일 때
+                    //{
+                    //    p -= 32;
+                    //}
+                    //if (p >= 16) // kvp.Key 값이 16 이상일 때
+                    //{
+                    //    p -= 16;
+                    //}
+                    int p = kvp.Key % NotePositionArray.Length; //원래는 p 값을 수정했지만 p값을 배열의 길이로 나눈 나머지를 사용하여 배열 범위 내로 조정함
 
 
 
-
-                    Instantiate(Note, NotePositionArray[p]); //노트 생성
+                    Instantiate(Note, NotePositionArray[p]); // 노트 생성
                     currentNoteCount++;
+                    // Instantiate(Note, NotePositionArray[p]); //노트 생성
+                    // currentNoteCount++;
                 }
             }
-        if (currentNoteCount >= GameManager.Instance.TotalNote+1)
-        {
-            isSongEnd = true;
-            Debug.Log("노래 끝났다 나가라");
-        }
-           
+            if (currentNoteCount >= GameManager.Instance.TotalNote)
+            {
+                isSongEnd = true;
+                Debug.Log("노래 끝났다 나가라");
+            }
+
         }
         countNoteTiming++;
 
         yield return new WaitForSeconds(tikTime);
     }
-    
+
 }

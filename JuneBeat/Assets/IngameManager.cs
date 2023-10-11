@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class IngameManager : MonoBehaviour
 {
@@ -202,7 +203,8 @@ public class IngameManager : MonoBehaviour
         // ScoreImage의 스프라이트를 ScoreSprite 배열에서 가져온 스프라이트로 설정
         ScoreImage.sprite = ScoreSprite[spriteIndex];
 
-        // 알파값을 서서히 페이드 인하는 코루틴 실행
+     
+
         StartCoroutine(ShowingScore());
 
         // 결과 표시를 비활성화
@@ -216,21 +218,31 @@ public class IngameManager : MonoBehaviour
     [SerializeField] Image Combo;
     [SerializeField] GameObject comboNum;
     [SerializeField] Image Rating;
-    [SerializeField] float WaitingTime = 3f;
-
+    [SerializeField] float WaitingTime = 4f;
+    [SerializeField] GameObject NextBtn;
+    [SerializeField] GameObject NextBtnPosition;
 
     IEnumerator ShowingScore()
     {
+        SoundManager.Instance.EffectPlay("result");
+        for (int i = 0; i < ComboImage.transform.childCount; i++)
+        {
+            StartCoroutine(FadeOutAlpha(ComboImage.transform.GetChild(i).gameObject.GetComponent<Image>()));
+          
+        }
+
         if (DataManager.Instance.totalScore >= DataManager.Instance.BaseScore) //엑셀런트
         {
             CEF.sprite = ClearExelFailed[0];
             StartCoroutine(FadeInAlpha(CEF));
+            SoundManager.Instance.EffectPlay("voice_excellent", "snd_excellent");
             yield return new WaitForSeconds(fadeDuration + WaitingTime);
             StartCoroutine(FadeOutAlpha(CEF));
 
             yield return new WaitForSeconds(fadeDuration + WaitingTime);
 
             StartCoroutine(FadeInAlpha(FullCombo));
+            SoundManager.Instance.EffectPlay("voice_fullcombo", "snd_fullcombo");
             yield return new WaitForSeconds(fadeDuration + WaitingTime);
             StartCoroutine(FadeOutAlpha(FullCombo));
 
@@ -251,6 +263,7 @@ public class IngameManager : MonoBehaviour
         {
             CEF.sprite = ClearExelFailed[2];
             StartCoroutine(FadeInAlpha(CEF));
+            SoundManager.Instance.EffectPlay("voice_failed", "snd_failed");
             yield return new WaitForSeconds(fadeDuration + WaitingTime);
             StartCoroutine(FadeOutAlpha(CEF));
             yield return new WaitForSeconds(fadeDuration + WaitingTime);
@@ -268,6 +281,7 @@ public class IngameManager : MonoBehaviour
         {
             CEF.sprite = ClearExelFailed[1];
             StartCoroutine(FadeInAlpha(CEF));
+            SoundManager.Instance.EffectPlay("voice_cleared", "snd_cleared");
             yield return new WaitForSeconds(fadeDuration + WaitingTime);
             StartCoroutine(FadeOutAlpha(CEF));
             if (GameManager.Instance.MaxComboNum == DataManager.Instance.Combo) //풀콤보일때
@@ -288,8 +302,8 @@ public class IngameManager : MonoBehaviour
         }
 
 
-
-
+        GameObject button =  Instantiate(NextBtn, NextBtnPosition.transform.position, Quaternion.identity);
+        button.transform.SetParent(GameObject.Find("Canvas").transform);
 
 
     }
@@ -445,7 +459,7 @@ public class IngameManager : MonoBehaviour
     }
 
 
-
+    
 
 
 

@@ -53,6 +53,7 @@ public class LobbyManager : MonoBehaviour
     void Start()
     {
         CreateSongSelection();
+        SoundManager.Instance.EffectPlay("selectmusic");
     }
 
     private void CreateSongSelection()
