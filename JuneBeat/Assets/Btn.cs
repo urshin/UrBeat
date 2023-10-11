@@ -75,17 +75,17 @@ public class Btn : Button  //버튼 상속 받기
                 SoundManager.Instance.EffectPlay("toggle_off");
                 break;
             case "basic(Clone)":
-                GameManager.Instance.CurrentDifficult = gameObject.name.Replace("(Clone)", "");
+                GameManager.Instance.CurrentDifficult = "basic";
                 LobbyManager.Instance.InputSongInfo();
                 SoundManager.Instance.EffectPlay("basic");
                 break;
             case "advanced(Clone)":
-                GameManager.Instance.CurrentDifficult = gameObject.name.Replace("(Clone)", "");
+                GameManager.Instance.CurrentDifficult = "advanced";
                 LobbyManager.Instance.InputSongInfo();
                 SoundManager.Instance.EffectPlay("advanced");
                 break;
             case "extreme(Clone)":
-                GameManager.Instance.CurrentDifficult = gameObject.name.Replace("(Clone)", "");
+                GameManager.Instance.CurrentDifficult = "extreme";
                 LobbyManager.Instance.InputSongInfo();
                 SoundManager.Instance.EffectPlay("extreme");
                 break;

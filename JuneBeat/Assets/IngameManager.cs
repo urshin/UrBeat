@@ -40,7 +40,7 @@ public class IngameManager : MonoBehaviour
         Artist.text = GameManager.Instance.Artist;
         BPM.text = GameManager.Instance.BPM.ToString();
         Notes.text = GameManager.Instance.TotalNote.ToString();
-        Dif.sprite = DifSprite[(int)GameManager.Instance.Dif - 1];
+       // Dif.sprite = DifSprite[(int)GameManager.Instance.Dif - 1];
         Level.sprite = LevelSprite[(int)GameManager.Instance.Level - 1];
         MusicImage.sprite = GameManager.Instance.MusicImage;
         DataManager.Instance.ResetScore(); //점수 시스템 초기화

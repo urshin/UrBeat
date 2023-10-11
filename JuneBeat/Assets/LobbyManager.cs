@@ -247,29 +247,17 @@ public class LobbyManager : MonoBehaviour
         string[] lines = GameManager.Instance.lines;
         i = 0;
 
+            GameManager.Instance.CurrentSongName = lines[0];
+            GameManager.Instance.Artist = lines[1];
+            GameManager.Instance.Difficult = lines[3];
+
         while (StopRead)
         {
             string line = lines[i].Trim(); // 현재 줄을 가져와서 공백 제거
 
-            if (line.StartsWith("#title"))
-            {
-                GameManager.Instance.Title = line.Substring(8).Trim();
-                Title.text = line.Substring(8);
-                GameManager.Instance.MusicImage = Resources.Load<Sprite>("music/" + GameManager.Instance.CurrentSongName);
-            }
-            if (line.StartsWith("#artist"))
-            {
-                GameManager.Instance.Artist = line.Substring(9).Trim();
-                Artist.text = line.Substring(9);
-            }
-            if (line.StartsWith("#dif"))
-            {
-                float.TryParse(line.Substring(6), out GameManager.Instance.Dif);
-
-            }
             if (line.StartsWith("prelistening"))
             {
-                float.TryParse(line.Substring(14).Trim(), out GameManager.Instance.prelistening) ;
+                float.TryParse(line.Substring(14).Trim(), out GameManager.Instance.prelistening);
 
             }
             if (line.StartsWith("Offset"))
@@ -277,15 +265,15 @@ public class LobbyManager : MonoBehaviour
                 float.TryParse(line.Substring(7).Trim(), out GameManager.Instance.SoundOffset);
 
             }
-            if (line.StartsWith("#lev"))
+            if (line.StartsWith("Level"))
             {
                 float.TryParse(line.Substring(6), out GameManager.Instance.Level);
                 Level.sprite = LobbyLevelImage[(int)GameManager.Instance.Level - 1];
             }
 
-            if (line.StartsWith("t"))
+            if (line.StartsWith("BPM"))
             {
-                float.TryParse(line.Substring(2), out GameManager.Instance.BPM);
+                float.TryParse(line.Substring(4).Trim(), out GameManager.Instance.BPM);
                 BPM.text = line.Substring(2);
             }
             if (line.StartsWith("Notes"))
@@ -295,16 +283,82 @@ public class LobbyManager : MonoBehaviour
             }
 
             i++;
-
-            if (line.Contains("#rasmemo"))
+            if (IsNumber(line))
             {
-                GameManager.Instance.findrasmemo = i;
+                Debug.Log("찾음");
+                GameManager.Instance.findrasmemo = i-1;
                 StopRead = false;
             }
 
-        }
-    }
+            //if (line.Contains("#rasmemo"))
+            //{
+            //    GameManager.Instance.findrasmemo = i;
+            //    StopRead = false;
+            //}
 
+        }
+        //while (StopRead)
+        //{
+        //    string line = lines[i].Trim(); // 현재 줄을 가져와서 공백 제거
+
+        //    if (line.StartsWith("#title"))
+        //    {
+        //        GameManager.Instance.Title = line.Substring(8).Trim();
+        //        Title.text = line.Substring(8);
+        //        GameManager.Instance.MusicImage = Resources.Load<Sprite>("music/" + GameManager.Instance.CurrentSongName);
+        //    }
+        //    if (line.StartsWith("#artist"))
+        //    {
+        //        GameManager.Instance.Artist = line.Substring(9).Trim();
+        //        Artist.text = line.Substring(9);
+        //    }
+        //    if (line.StartsWith("#dif"))
+        //    {
+        //        float.TryParse(line.Substring(6), out GameManager.Instance.Dif);
+
+        //    }
+        //    if (line.StartsWith("prelistening"))
+        //    {
+        //        float.TryParse(line.Substring(14).Trim(), out GameManager.Instance.prelistening);
+
+        //    }
+        //    if (line.StartsWith("Offset"))
+        //    {
+        //        float.TryParse(line.Substring(7).Trim(), out GameManager.Instance.SoundOffset);
+
+        //    }
+        //    if (line.StartsWith("#lev"))
+        //    {
+        //        float.TryParse(line.Substring(6), out GameManager.Instance.Level);
+        //        Level.sprite = LobbyLevelImage[(int)GameManager.Instance.Level - 1];
+        //    }
+
+        //    if (line.StartsWith("t"))
+        //    {
+        //        float.TryParse(line.Substring(2), out GameManager.Instance.BPM);
+        //        BPM.text = line.Substring(2);
+        //    }
+        //    if (line.StartsWith("Notes"))
+        //    {
+        //        float.TryParse(line.Substring(6).Trim(), out GameManager.Instance.TotalNote);
+        //        Notes.text = line.Substring(6).Trim();
+        //    }
+
+        //    i++;
+
+        //    if (line.Contains("#rasmemo"))
+        //    {
+        //        GameManager.Instance.findrasmemo = i;
+        //        StopRead = false;
+        //    }
+
+        //}
+    }
+    bool IsNumber(string str)
+    {
+        int n;
+        return int.TryParse(str, out n);
+    }
     public void Back()
     {
         for (int i = 0; i < DifBtn.Count; i++)

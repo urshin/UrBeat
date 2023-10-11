@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     public float BPM;
     public float Notes;
     public float Dif;
+    public string Difficult;
     public float Level;
     public float TotalNote;
     public float prelistening;
@@ -69,16 +70,30 @@ public class GameManager : MonoBehaviour
 
 
 
+    //public void ReadSongTxt()
+    //{
+    //    CurrentSongAndDiff = CurrentSongName + "_" + CurrentDifficult;
+    //    filePath = "music/" + CurrentSongAndDiff;
+    //    textAsset = new TextAsset();
+    //    textAsset = Resources.Load<TextAsset>(filePath);
+    //    Debug.Log(filePath);
+    //    lines = textAsset.text.Split('\n'); // 예외처리 필요
+    //}
     public void ReadSongTxt()
     {
         CurrentSongAndDiff = CurrentSongName + "_" + CurrentDifficult;
         filePath = "music/" + CurrentSongAndDiff;
-        textAsset = new TextAsset();
         textAsset = Resources.Load<TextAsset>(filePath);
+
+        if (textAsset == null)
+        {
+            Debug.LogError("Failed to load text asset at path: " + filePath);
+            return; // 예외 처리 또는 오류 처리를 수행하거나 이 메서드를 종료합니다.
+        }
+
         Debug.Log(filePath);
         lines = textAsset.text.Split('\n');
     }
-
 
 
     private void Update()

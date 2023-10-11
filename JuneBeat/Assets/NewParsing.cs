@@ -67,7 +67,7 @@ public class NewParsing : MonoBehaviour
     {
         GameManager.Instance.currentState = CurrentState.Ingame;
         //게임 매니저에게 현재 곡정보. 알려주기
-        GameManager.Instance.CurrentSongAndDiff = GameManager.Instance.CurrentSongName + "_" + GameManager.Instance.CurrentDifficult;
+        //GameManager.Instance.CurrentSongAndDiff = GameManager.Instance.CurrentSongName + "_" + GameManager.Instance.CurrentDifficult;
         isSongEnd = false;
         SoundManager.Instance.StopBGM();
         songStart = true;
@@ -129,6 +129,7 @@ public class NewParsing : MonoBehaviour
                 if (lines[LineNum].Length >= 6)
                 {
                     NoteTimeing.Add(lines[LineNum].Substring(6, lines[LineNum].LastIndexOf('|') - 6)); //노트 타이밍 리스트 넣어주기
+                    //NoteTimeing.Add(lines[LineNum].Substring(5)); //노트 타이밍 리스트 넣어주기
                 }
             }
             LineNum++; //다음줄
