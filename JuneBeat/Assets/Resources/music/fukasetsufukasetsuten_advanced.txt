@@ -8,7 +8,7 @@
 m = fukasetsufukasetsuten.mp3
 prelistening = 69.12
 cover = fukasetsufukasetsuten.png
-
+Offset=1.6
 t=140
 r=1039
 Notes: 522

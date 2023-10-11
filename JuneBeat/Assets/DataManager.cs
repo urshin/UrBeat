@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class DataManager : MonoBehaviour
 {
@@ -14,8 +16,6 @@ public class DataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);//씬이 전환이 되어도 파괴되지 않고 유지됨.
         }
     }
-
-
 
 
     public float Perfect;
@@ -46,10 +46,6 @@ public class DataManager : MonoBehaviour
         Bad = (Perfect / 100) * 30; // 30퍼
         Miss = 0; //없음
     }
-
-
-
-
 
 
 }

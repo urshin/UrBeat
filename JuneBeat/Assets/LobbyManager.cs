@@ -267,6 +267,16 @@ public class LobbyManager : MonoBehaviour
                 float.TryParse(line.Substring(6), out GameManager.Instance.Dif);
 
             }
+            if (line.StartsWith("prelistening"))
+            {
+                float.TryParse(line.Substring(14).Trim(), out GameManager.Instance.prelistening) ;
+
+            }
+            if (line.StartsWith("Offset"))
+            {
+                float.TryParse(line.Substring(7).Trim(), out GameManager.Instance.SoundOffset);
+
+            }
             if (line.StartsWith("#lev"))
             {
                 float.TryParse(line.Substring(6), out GameManager.Instance.Level);

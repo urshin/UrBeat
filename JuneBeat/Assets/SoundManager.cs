@@ -43,7 +43,7 @@ public class SoundManager : MonoBehaviour
         Effect = Resources.LoadAll<AudioClip>("Effect");
 
     }
-    public void EffectPlay(params string[] EffectNames)
+    public void EffectPlay(params string[] EffectNames) //유동적인 범위
     {
         for (int i = 0; i < EffectNames.Length; i++)
         {
@@ -93,6 +93,7 @@ public class SoundManager : MonoBehaviour
             {
                 Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
                 BGMaudiosource.clip = Song[songNumber];
+                BGMaudiosource.time = GameManager.Instance.prelistening;
                 BGMaudiosource.Play();
                 break; // 오디오 클립을 찾았으므로 반복문 종료
             }
@@ -111,8 +112,8 @@ public class SoundManager : MonoBehaviour
             if (Song[songNumber].name.ToLower().Replace("_", " ").Contains(currentSongNameModified)) // 오디오 클립의 이름을 변경하고 소문자로 변환하여 비교
             {
                 Debug.Log($"오디오 클립 '{GameManager.Instance.CurrentSongName}'의 배열 순서: " + songNumber);
-                BGMaudiosource.clip = Song[songNumber];
-                BGMaudiosource.Play();
+               // BGMaudiosource.time= GameManager.Instance.SoundOffset;
+                BGMaudiosource.PlayDelayed(GameManager.Instance.SoundOffset);
                 break; // 오디오 클립을 찾았으므로 반복문 종료
             }
 

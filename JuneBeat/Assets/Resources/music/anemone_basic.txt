@@ -7,7 +7,7 @@
 m = anemone.mp3
 prelistening = 19.9
 cover = anemone.png
-
+Offset=1.35
 t=200
 r=451
 Notes: 286

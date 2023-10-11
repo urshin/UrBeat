@@ -243,7 +243,7 @@ public class NewParsing : MonoBehaviour
     {
         if (TimerEnd && songStart)
         {
-            SoundManager.Instance.StartBGM();
+            SoundManager.Instance.SongPlay();
             songStart = false;
         }
     }

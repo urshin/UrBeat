@@ -56,6 +56,9 @@ public class GameManager : MonoBehaviour
     public float Dif;
     public float Level;
     public float TotalNote;
+    public float prelistening;
+    public float SoundOffset;
+
     public int MaxComboNum;
     public Sprite MusicImage;
 

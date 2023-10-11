@@ -8,7 +8,7 @@
 m = saturday_night_love.mp3
 prelistening = 46.3
 cover = saturday_night_love.png
-
+Offset=1.4
 t=128
 r=390
 Notes: 196
