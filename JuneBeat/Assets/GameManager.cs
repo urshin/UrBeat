@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentSongAndDiff = CurrentSongName + "_" + CurrentDifficult;
         filePath = "music/" + CurrentSongAndDiff;
+        textAsset = new TextAsset(filePath);
         textAsset = Resources.Load<TextAsset>(filePath);
 
         if (textAsset == null)

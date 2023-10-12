@@ -40,7 +40,7 @@ public class IngameManager : MonoBehaviour
         Artist.text = GameManager.Instance.Artist;
         BPM.text = GameManager.Instance.BPM.ToString();
         Notes.text = GameManager.Instance.TotalNote.ToString();
-       // Dif.sprite = DifSprite[(int)GameManager.Instance.Dif - 1];
+        Dif.sprite = DifSprite[(int)GameManager.Instance.Dif - 1];
         Level.sprite = LevelSprite[(int)GameManager.Instance.Level - 1];
         MusicImage.sprite = GameManager.Instance.MusicImage;
         DataManager.Instance.ResetScore(); //점수 시스템 초기화
@@ -218,7 +218,7 @@ public class IngameManager : MonoBehaviour
     [SerializeField] Image Combo;
     [SerializeField] GameObject comboNum;
     [SerializeField] Image Rating;
-    [SerializeField] float WaitingTime = 4f;
+    [SerializeField] float WaitingTime = 5f;
     [SerializeField] GameObject NextBtn;
     [SerializeField] GameObject NextBtnPosition;
 
@@ -230,7 +230,7 @@ public class IngameManager : MonoBehaviour
             StartCoroutine(FadeOutAlpha(ComboImage.transform.GetChild(i).gameObject.GetComponent<Image>()));
           
         }
-
+        yield return new WaitForSeconds(fadeDuration + WaitingTime);
         if (DataManager.Instance.totalScore >= DataManager.Instance.BaseScore) //엑셀런트
         {
             CEF.sprite = ClearExelFailed[0];

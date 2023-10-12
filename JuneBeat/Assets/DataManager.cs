@@ -33,6 +33,7 @@ public class DataManager : MonoBehaviour
         Bad = 0;
         Miss = 0;
         Combo = 0;
+        totalScore = 0;
     }
 
 
