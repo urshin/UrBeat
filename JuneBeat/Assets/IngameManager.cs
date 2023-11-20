@@ -426,23 +426,7 @@ public class IngameManager : MonoBehaviour
 
     public void PositionNumber() //노트의 자리수마다 점수 구하기
     {
-        //int score = (int)DataManager.Instance.totalScore;
-
-        //numbers[0] = score % 10;
-        //numbers[1]= (score / 10) % 10;
-        //numbers[2] = (score / 100) % 10;
-        //numbers[3] = (score / 1000) % 10;
-        //numbers[4] = (score / 10000) % 10;
-        //numbers[5]= (score / 100000) % 10;
-        //numbers[6] = (score / 1000000) % 10;
-
-        //Score[0].sprite = IngameScoreSprite[numbers[0]];
-        //Score[1].sprite = IngameScoreSprite[numbers[1]];
-        //Score[2].sprite = IngameScoreSprite[numbers[2]];
-        //Score[3].sprite = IngameScoreSprite[numbers[3]];
-        //Score[4].sprite = IngameScoreSprite[numbers[4]];
-        //Score[5].sprite = IngameScoreSprite[numbers[5]];
-        //Score[6].sprite = IngameScoreSprite[numbers[6]];
+      
 
 
         //간략화 버전
