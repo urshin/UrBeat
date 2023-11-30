@@ -15,6 +15,7 @@ public class LobbyManager : MonoBehaviour
     public Text Artist;
     public Text BPM;
     public Text Notes;
+    public Text BestScore;
     //public Text Dif;
     public Image Level;
     public Image MusicImage;

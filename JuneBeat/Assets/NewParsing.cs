@@ -119,7 +119,7 @@ public class NewParsing : MonoBehaviour
 
             if (IsNumber(lines[LineNum]) || string.IsNullOrWhiteSpace(lines[LineNum])) //읽은 라인이 숫자면
             {
-                //NotePosision = new List<string>();
+            
 
                 GoNextPositionParsing = false;
             }
@@ -128,8 +128,8 @@ public class NewParsing : MonoBehaviour
                 NotePosision.Add(lines[LineNum].Substring(0, 4));
                 if (lines[LineNum].Length >= 6)
                 {
-                    NoteTimeing.Add(lines[LineNum].Substring(6, lines[LineNum].LastIndexOf('|') - 6)); //노트 타이밍 리스트 넣어주기
-                    //NoteTimeing.Add(lines[LineNum].Substring(5)); //노트 타이밍 리스트 넣어주기
+                    NoteTimeing.Add(lines[LineNum].Substring(6, lines[LineNum].LastIndexOf('|') - 6)); 
+                  
                 }
             }
             LineNum++; //다음줄

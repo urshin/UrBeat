@@ -203,7 +203,7 @@ public class IngameManager : MonoBehaviour
         // ScoreImage의 스프라이트를 ScoreSprite 배열에서 가져온 스프라이트로 설정
         ScoreImage.sprite = ScoreSprite[spriteIndex];
 
-     
+        DataManager.Instance.InputScoreData(GameManager.Instance.CurrentSongAndDiff, totalScore);
 
         StartCoroutine(ShowingScore());
 

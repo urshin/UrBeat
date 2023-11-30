@@ -25,6 +25,7 @@ public class LobbySongBtn : MonoBehaviour
         LobbyManager.Instance.Title.text = gameObject.name;
         GameManager.Instance.FindTextFile();
         SoundManager.Instance.SongPreview();
+        LobbyManager.Instance.BestScore.text = DataManager.Instance.readScore(gameObject.name).ToString();
     }
 
     void Update()
